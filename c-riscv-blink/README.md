@@ -1,6 +1,6 @@
 Welcome to the example code for litex riscv soc on iCEBreaker.
 
-== Install ==
+## Install
 
 Make sure you have the soc installed as described in the `soc` directory of this repository.
 

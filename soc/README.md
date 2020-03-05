@@ -2,7 +2,7 @@ This is an example Risc-V SOC for the iCEBreaker FPGA.
 
 The goal is to create a simple SOC that can be programmed from C, Rust or micropython.
 
-== Installation ==
+## Installation
 
 Install litex: https://github.com/enjoy-digital/litex#quick-start-guide
 

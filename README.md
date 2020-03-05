@@ -2,7 +2,7 @@ This is an example Risc-V SOC for the iCEBreaker FPGA.
 
 The goal is to create a simple SOC that can be programmed from C, Rust or micropython.
 
-== Structure ==
+## Structure
 
 This repository is divided into several subdirectories.
 
@@ -10,7 +10,7 @@ This repository is divided into several subdirectories.
 * ./c-\*: Are C code examples.
 * ./r-\*: Are Rust code examples.
 
-== Getting Started ==
+## Getting Started
 
 * Clone this repository onto your computer.
 * Follow the instructions in the soc/README.md.

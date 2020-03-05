@@ -2,7 +2,7 @@ Welcome to the example code for litex riscv soc on iCEBreaker.
 
 == Install ==
 
-Make sure you have the soc installed as described in the root directory of this repository.
+Make sure you have the soc installed as described in the `soc` directory of this repository.
 
 Build and flash the firmware for your soc by running:
 ```

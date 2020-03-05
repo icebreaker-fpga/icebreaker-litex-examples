@@ -2,17 +2,19 @@ This is an example Risc-V SOC for the iCEBreaker FPGA.
 
 The goal is to create a simple SOC that can be programmed from C, Rust or micropython.
 
-== Installation ==
+== Structure ==
 
-Install litex: https://github.com/enjoy-digital/litex#quick-start-guide
+This repository is divided into several subdirectories.
 
-Run the SOC build script and upload the bitstream to your iCEBreaker:
-```
-python ./icebreaker.py --cpu --debug
-iceprog soc_basesoc_icebreaker/gateware/top.bin
-```
+* ./soc: Contains the litex build script to build the SOC.
+* ./c-\*: Are C code examples.
+* ./r-\*: Are Rust code examples.
 
-Go to one of the language example repositories and follow the instructions in
-the respective README.md.
+== Getting Started ==
 
-NOTE: You can omit the `--debug` parameter for the litex build. This will result in a smaller SOC but you will loose the wishbone bridge that allows direct memory inspection and GDB debugging of your SOC. If you choose to omit the `--debug` option the UART can be used directly without the wishbone-tool.
+* Clone this repository onto your computer.
+* Follow the instructions in the soc/README.md.
+* Then follow the instructions in the soc/c-riscv-blink as this is meant to be
+  the most basic and simple code example. After that feel free to explore all
+  the other code examples.
+

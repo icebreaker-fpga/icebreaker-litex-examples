@@ -18,16 +18,11 @@ from litex.soc.integration.builder import Builder, builder_argdict, builder_args
 from litex.soc.integration.soc_core import soc_core_argdict, soc_core_args
 from litex.soc.integration.doc import AutoDoc
 
-# from litex.soc.integration.common import SoCMemRegion
-
 from litex_boards.platforms.icebreaker import Platform
 
 from litex.soc.interconnect import wishbone
 from litex.soc.cores.uart import UARTWishboneBridge
 from litex.soc.cores.gpio import GPIOOut
-# import litex.soc.cores.cpu
-
-# import os, shutil, subprocess
 
 
 class JumpToAddressROM(wishbone.SRAM):
@@ -207,9 +202,6 @@ class BaseSoC(SoCCore):
         if pnr_placer is not None:
             platform.toolchain.build_template[1] += " --placer {}".format(pnr_placer)
 
-        # self.mem_regions["rom"] = SoCMemRegion(0x2001a000, 16 * 1024 * 1024 - 0x1a000, "cached")
-        # self.mem_regions["boot"] = SoCMemRegion(0, 16, "cached")
-
 
 # Build --------------------------------------------------------------------------------------------
 
@@ -225,18 +217,23 @@ def main():
     parser.add_argument(
         "--cpu", action="store_true", help="Add a CPU to the build"
     )
+    parser.add_argument(
+        "--debug", action="store_true", help="Add debug features. UART has to be used with the wishbone-tool."
+    )
     builder_args(parser)
     soc_core_args(parser)
     args = parser.parse_args()
 
     kwargs = builder_argdict(args)
 
+    print(kwargs)
+
     if args.cpu:
         kwargs["cpu_type"] = "vexriscv"
-        kwargs["cpu_variant"] = "lite"
+        kwargs["cpu_variant"] = "min"
 
     soc = BaseSoC(pnr_placer=args.placer, pnr_seed=args.seed,
-                  debug=True, **kwargs)
+                  debug=args.debug, **kwargs)
 
     kwargs = builder_argdict(args)
 

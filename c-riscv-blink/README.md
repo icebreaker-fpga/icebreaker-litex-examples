@@ -19,3 +19,11 @@ wishbone-tool --uart /dev/ttyUSB1 -s terminal
 ```
 
 You can find the wishbone-tool here: https://github.com/litex-hub/wishbone-utils
+
+NOTE: If you decided to build your SOC without the `--debug` parameter you can access the console output directly through the iCEBreaker UART port. For example using screen:
+
+```
+screen /dev/ttyUSB1 115200
+```
+
+To exit screen you can type `Ctrl-a k` or `Ctrl-a Ctrl-k`

@@ -44,9 +44,12 @@ DBG_LFLAGS := -ggdb -g -Wall
 CFLAGS     := $(ADD_CFLAGS) \
 			  -Wall -Wextra \
 			  -ffunction-sections -fdata-sections -fno-common \
-			  -fomit-frame-pointer -Os \
+			  -fomit-frame-pointer \
 			  -march=rv32i \
 			  -DGIT_VERSION=u\"$(GIT_VERSION)\" -std=gnu11
+# Uncomment the following line to enable size optimization.
+# Keep in mind that enabling optimization will make GDB debugging harder if not impossible.
+# CFLAGS     := $(CFLAGS) -Os
 CXXFLAGS   := $(CFLAGS) -std=c++11 -fno-rtti -fno-exceptions
 LFLAGS     := $(CFLAGS) $(ADD_LFLAGS) -L$(LD_DIR) \
 			  -nostartfiles \

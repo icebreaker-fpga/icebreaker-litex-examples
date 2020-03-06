@@ -4,13 +4,15 @@ The goal is to create a simple SOC that can be programmed from C, Rust or microp
 
 ## Installation
 
-Install litex: https://github.com/enjoy-digital/litex#quick-start-guide
-
 Run the SOC build script and upload the bitstream to your iCEBreaker:
 ```
-python ./icebreaker.py --cpu --debug
+./icebreaker.py --cpu --debug
 iceprog soc_basesoc_icebreaker/gateware/top.bin
 ```
+
+NOTE: The script should automatically download all python dependencies. You only have to provide the FPGA tools and riscv compiler.
+
+TODO: Add information how to get FPGA tools and the riscv compiler.
 
 Go to one of the language example repositories and follow the instructions in
 the respective README.md.

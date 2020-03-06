@@ -7,6 +7,15 @@
 
 # This target was originally based on the Fomu target.
 
+# This variable defines all the external programs that this module
+# relies on.  lxbuildenv reads this variable in order to ensure
+# the build will finish without exiting due to missing third-party
+# programs.
+LX_DEPENDENCIES = ["riscv", "icestorm", "yosys", "nextpnr-ice40"]
+
+# Import lxbuildenv to integrate the deps/ directory
+import lxbuildenv
+
 import argparse
 
 from migen import *
@@ -24,6 +33,7 @@ from litex.soc.interconnect import wishbone
 from litex.soc.cores.uart import UARTWishboneBridge
 from litex.soc.cores.gpio import GPIOOut
 
+import litex.soc.doc as lxsocdoc
 
 class JumpToAddressROM(wishbone.SRAM):
     def __init__(self, size, addr):
@@ -241,7 +251,10 @@ def main():
     # to SPI flash.
     kwargs["compile_software"] = False
     builder = Builder(soc, **kwargs)
-    builder.build()
+    vns = builder.build()
+    soc.do_exit(vns)
+    lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
+    # lxsocdoc.generate_svd(soc, "build/software", vendor="1BitSquared", name="iCEBESOC")
 
 
 if __name__ == "__main__":

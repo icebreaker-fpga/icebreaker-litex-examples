@@ -11,12 +11,15 @@ repository = "https://github.com/icebreaker-fpga/icebreaker-litex-examples"
 
 [dependencies]
 bare-metal = "0.2.0"
-vexriscv = "0.0.1"
+riscv = { version = "0.0.2", package = "vexriscv" }
 vcell = "0.1.0"
 
-[dependencies.fomu-rt]
-optional = true
-version = "0.0.3"
+# Use the "fomu-rt" package as "riscv", since the upstream version
+# doesn't yet support riscv32i-unknown-none-elf
+riscv-rt = { optional = true, version = "0.0.3", package = "fomu-rt" }
 
 [features]
-rt = ["fomu-rt"]
+rt = ["riscv-rt"]
+
+[build-dependencies]
+svd2rust = "0.17.0"

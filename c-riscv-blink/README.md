@@ -7,7 +7,7 @@ Make sure you have the soc installed as described in the `soc` directory of this
 Build and flash the firmware for your soc by running:
 ```
 make
-iceprog -o 0x00020000 riscv-blink.bin
+iceprog -o 0x00040000 riscv-blink.bin
 ```
 
 The two LED Red and Green should blink alternating.

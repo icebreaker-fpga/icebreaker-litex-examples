@@ -1,0 +1,22 @@
+[package]
+name = "icebesoc-pac"
+version = "0.0.1"
+description = "svd2rust generated pac for the iCEBreaker Litex Risc-V Example SOC"
+license = "ISC"
+authors = ["Piotr Esden-Tempski <piotr@esden.net>"]
+edition = "2018"
+repository = "https://github.com/icebreaker-fpga/icebreaker-litex-examples"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bare-metal = "0.2.0"
+vexriscv = "0.0.1"
+vcell = "0.1.0"
+
+[dependencies.fomu-rt]
+optional = true
+version = "0.0.3"
+
+[features]
+rt = ["fomu-rt"]

@@ -1,0 +1,26 @@
+[package]
+name = "r-riscv-blink"
+version = "0.1.0"
+authors = ["Piotr Esden-Tempski <piotr@esden.net>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+icebesoc-pac = { path = "../rust/icebesoc-pac" }
+fomu-rt  = "0.0.4" 
+
+panic-halt = "0.2"
+
+[features]
+debug-print = []
+
+[profile.release]
+# Keep debug information for release builds, for easier debugging.
+# It will be removed during the conversion to the .dfu file.
+debug = true
+
+# Improve code generation
+lto = true
+codegen-units = 1
+

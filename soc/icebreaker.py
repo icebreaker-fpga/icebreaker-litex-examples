@@ -107,7 +107,7 @@ class BaseSoC(SoCCore):
     }
 
     def __init__(self, pnr_placer="heap", pnr_seed=0, debug=True,
-                 boot_vector=0x20020000,
+                 boot_vector=0x20040000,
                  **kwargs):
         """Create a basic SoC for iCEBreaker.
 

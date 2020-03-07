@@ -22,7 +22,7 @@ fn main() -> ! {
     let mut timer = Timer::new(peripherals.TIMER0);
 
     loop {
-        println!("a");
+        print!("a");
         msleep(&mut timer, 80);
     }
 }
@@ -31,7 +31,7 @@ fn msleep(timer: &mut Timer, ms: u32) {
     timer.disable();
 
     timer.reload(0);
-    timer.load(SYSTEM_CLOCK_FREQUENCY / 10 * ms);
+    timer.load(SYSTEM_CLOCK_FREQUENCY / 1_000 * ms);
 
     timer.enable();
 

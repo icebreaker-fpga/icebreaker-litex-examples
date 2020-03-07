@@ -167,10 +167,10 @@ class BaseSoC(SoCCore):
             if hasattr(self, "cpu") and self.cpu.name == "vexriscv":
                 self.register_mem("vexriscv_debug", 0xf00f0000, self.cpu.debug_bus, 0x100)
 
-        ledsignals = Signal(2)
-        self.submodules.leds = GPIOOut(ledsignals)
-        self.comb += platform.request("user_ledr_n").eq(ledsignals[0])
-        self.comb += platform.request("user_ledg_n").eq(ledsignals[1])
+        self.submodules.leds = GPIOOut(Cat(
+            platform.request("user_ledr_n"),
+            platform.request("user_ledg_n")))
+
         self.add_csr("leds")
 
     def set_yosys_nextpnr_settings(self, nextpnr_seed=0, nextpnr_placer="heap"):

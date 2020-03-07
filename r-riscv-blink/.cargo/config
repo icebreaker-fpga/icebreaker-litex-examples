@@ -1,6 +1,11 @@
 [target.riscv32i-unknown-none-elf]
 rustflags = [
   "-C", "link-arg=-Tlink.x",
+  "-C", "linker-plugin-lto",
+  # The following option can decrease the code size significantly.  We don't
+  # have it enabled by default as it gets rid of panic information we do want
+  # to have those when developing code.
+  # "-C", "force-frame-pointers=no",
 ]
 
 

@@ -13,6 +13,7 @@ fomu-rt  = "0.0.4"
 panic-halt = "0.2"
 
 [features]
+default = ["debug-print"]
 debug-print = []
 
 [profile.release]

@@ -21,6 +21,7 @@ const SYSTEM_CLOCK_FREQUENCY: u32 = 12_000_000;
 fn main() -> ! {
     let peripherals = icebesoc_pac::Peripherals::take().unwrap();
 
+    print::print_hardware::set_hardware(peripherals.UART);
     let mut timer = Timer::new(peripherals.TIMER0);
     let mut leds = Leds::new(peripherals.LEDS);
     leds.set(false, true);

@@ -1,16 +1,21 @@
+use icebesoc_pac::UART;
+
 pub struct Uart {
-    pub base: *mut u32,
+    pub registers: Option<UART>,
 }
 
 impl Uart {
     pub fn putc(&self, c: u8) {
-        unsafe {
-            // Wait until TXFULL is `0`
-            while self.base.add(1).read_volatile() != 0 {
-                ()
-            }
-            self.base.add(0).write_volatile(c as u32)
-        };
+        match self.registers.as_ref() {
+            Some(reg) => unsafe {
+                // Wait until TXFULL is `0`
+                while reg.txfull.read().bits() != 0 {
+                    ()
+                }
+                reg.rxtx.write(|w| w.bits(c));
+            },
+            None => ()
+        }
     }
 }
 
@@ -28,16 +33,24 @@ impl Write for Uart {
 #[cfg(not(test))]
 pub mod print_hardware {
     use crate::print::*;
-    pub const SUPERVISOR_UART: Uart = Uart {
-        base: 0xe000_1800 as *mut u32,
+    pub static mut SUPERVISOR_UART: Uart = Uart {
+        registers: None,
     };
+
+    pub fn set_hardware(uart: UART) {
+        unsafe {
+            SUPERVISOR_UART.registers = Some(uart);
+        }
+    }
 
     #[macro_export]
     macro_rules! print
     {
         ($($args:tt)+) => ({
                 use core::fmt::Write;
-                let _ = write!(crate::print::print_hardware::SUPERVISOR_UART, $($args)+);
+                unsafe {
+                    let _ = write!(crate::print::print_hardware::SUPERVISOR_UART, $($args)+);
+                }
         });
     }
 }

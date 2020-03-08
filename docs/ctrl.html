@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>CTRL &#8212; iCEBreaker LiteX Riscv Example SOC  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/default.js"></script>
+    <script src="_static/WaveDrom.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="UART_PHY" href="uart_phy.html" />
+    <link rel="prev" title="Interrupt Controller" href="interrupts.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ctrl">
+<h1>CTRL<a class="headerlink" href="#ctrl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="register-listing-for-ctrl">
+<h2>Register Listing for CTRL<a class="headerlink" href="#register-listing-for-ctrl" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Register</p></th>
+<th class="head"><p>Address</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#ctrl-reset"><span class="std std-ref">CTRL_RESET</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-reset"><span class="std std-ref">0xe0000000</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ctrl-scratch3"><span class="std std-ref">CTRL_SCRATCH3</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-scratch3"><span class="std std-ref">0xe0000004</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ctrl-scratch2"><span class="std std-ref">CTRL_SCRATCH2</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-scratch2"><span class="std std-ref">0xe0000008</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ctrl-scratch1"><span class="std std-ref">CTRL_SCRATCH1</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-scratch1"><span class="std std-ref">0xe000000c</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ctrl-scratch0"><span class="std std-ref">CTRL_SCRATCH0</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-scratch0"><span class="std std-ref">0xe0000010</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ctrl-bus-errors3"><span class="std std-ref">CTRL_BUS_ERRORS3</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-bus-errors3"><span class="std std-ref">0xe0000014</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ctrl-bus-errors2"><span class="std std-ref">CTRL_BUS_ERRORS2</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-bus-errors2"><span class="std std-ref">0xe0000018</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ctrl-bus-errors1"><span class="std std-ref">CTRL_BUS_ERRORS1</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-bus-errors1"><span class="std std-ref">0xe000001c</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ctrl-bus-errors0"><span class="std std-ref">CTRL_BUS_ERRORS0</span></a></p></td>
+<td><p><a class="reference internal" href="#ctrl-bus-errors0"><span class="std std-ref">0xe0000020</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="ctrl-reset">
+<h3>CTRL_RESET<a class="headerlink" href="#ctrl-reset" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x0 = 0xe0000000</cite></p>
+<blockquote>
+<div><p>Write a <code class="docutils literal notranslate"><span class="pre">1</span></code> to this register to reset the SoC.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "reset", "bits": 1},
+        {"bits": 7},
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-scratch3">
+<h3>CTRL_SCRATCH3<a class="headerlink" href="#ctrl-scratch3" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x4 = 0xe0000004</cite></p>
+<blockquote>
+<div><p>Bits 24-31 of <cite>CTRL_SCRATCH</cite>. Use this register as a scratch space to verify
+that software read/write accesses to the Wishbone/CSR bus are working correctly.
+The initial reset value of 0x1234578 can be used to verify endianness.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "scratch[31:24]", "attr": 'reset: 18', "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-scratch2">
+<h3>CTRL_SCRATCH2<a class="headerlink" href="#ctrl-scratch2" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x8 = 0xe0000008</cite></p>
+<blockquote>
+<div><p>Bits 16-23 of <cite>CTRL_SCRATCH</cite>.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "scratch[23:16]", "attr": 'reset: 52', "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-scratch1">
+<h3>CTRL_SCRATCH1<a class="headerlink" href="#ctrl-scratch1" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0xc = 0xe000000c</cite></p>
+<blockquote>
+<div><p>Bits 8-15 of <cite>CTRL_SCRATCH</cite>.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "scratch[15:8]", "attr": 'reset: 86', "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-scratch0">
+<h3>CTRL_SCRATCH0<a class="headerlink" href="#ctrl-scratch0" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x10 = 0xe0000010</cite></p>
+<blockquote>
+<div><p>Bits 0-7 of <cite>CTRL_SCRATCH</cite>.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "scratch[7:0]", "attr": 'reset: 120', "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-bus-errors3">
+<h3>CTRL_BUS_ERRORS3<a class="headerlink" href="#ctrl-bus-errors3" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x14 = 0xe0000014</cite></p>
+<blockquote>
+<div><p>Bits 24-31 of <cite>CTRL_BUS_ERRORS</cite>. Total number of Wishbone bus errors (timeouts)
+since last reset.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "bus_errors[31:24]", "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-bus-errors2">
+<h3>CTRL_BUS_ERRORS2<a class="headerlink" href="#ctrl-bus-errors2" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x18 = 0xe0000018</cite></p>
+<blockquote>
+<div><p>Bits 16-23 of <cite>CTRL_BUS_ERRORS</cite>.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "bus_errors[23:16]", "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-bus-errors1">
+<h3>CTRL_BUS_ERRORS1<a class="headerlink" href="#ctrl-bus-errors1" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x1c = 0xe000001c</cite></p>
+<blockquote>
+<div><p>Bits 8-15 of <cite>CTRL_BUS_ERRORS</cite>.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "bus_errors[15:8]", "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ctrl-bus-errors0">
+<h3>CTRL_BUS_ERRORS0<a class="headerlink" href="#ctrl-bus-errors0" title="Permalink to this headline">¶</a></h3>
+<p><cite>Address: 0xe0000000 + 0x20 = 0xe0000020</cite></p>
+<blockquote>
+<div><p>Bits 0-7 of <cite>CTRL_BUS_ERRORS</cite>.</p>
+
+<div style="overflow-x:auto">
+<script type="WaveDrom">
+{
+    "reg": [
+        {"name": "bus_errors[7:0]", "bits": 8}
+    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+}
+</script>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">iCEBreaker LiteX Riscv Example SOC</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="interrupts.html">Interrupt Controller</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CTRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uart_phy.html">UART_PHY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uart.html">UART</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timer0.html">TIMER0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lxspi.html">LXSPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="leds.html">LEDS</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="interrupts.html" title="previous chapter">Interrupt Controller</a></li>
+      <li>Next: <a href="uart_phy.html" title="next chapter">UART_PHY</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Piotr Esden-Tempski.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/ctrl.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

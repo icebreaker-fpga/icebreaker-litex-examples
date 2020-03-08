@@ -1,0 +1,29 @@
+LEDS
+====
+
+Register Listing for LEDS
+-------------------------
+
++----------------------------+------------------------------+
+| Register                   | Address                      |
++============================+==============================+
+| :ref:`LEDS_OUT <LEDS_OUT>` | :ref:`0xe0003000 <LEDS_OUT>` |
++----------------------------+------------------------------+
+
+LEDS_OUT
+^^^^^^^^
+
+`Address: 0xe0003000 + 0x0 = 0xe0003000`
+
+
+    .. wavedrom::
+        :caption: LEDS_OUT
+
+        {
+            "reg": [
+                {"name": "out[1:0]", "bits": 2},
+                {"bits": 6},
+            ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+        }
+
+

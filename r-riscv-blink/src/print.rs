@@ -25,9 +25,9 @@ impl Write for Uart {
 }
 
 #[macro_use]
-#[cfg(all(not(test), feature = "debug-print"))]
-pub mod debug_print_hardware {
-    use crate::debug::*;
+#[cfg(not(test))]
+pub mod print_hardware {
+    use crate::print::*;
     pub const SUPERVISOR_UART: Uart = Uart {
         base: 0xe000_1800 as *mut u32,
     };
@@ -37,19 +37,7 @@ pub mod debug_print_hardware {
     {
         ($($args:tt)+) => ({
                 use core::fmt::Write;
-                let _ = write!(crate::debug::debug_print_hardware::SUPERVISOR_UART, $($args)+);
-        });
-    }
-}
-
-#[macro_use]
-#[cfg(all(not(test), not(feature = "debug-print")))]
-mod debug_print_hardware {
-    #[macro_export]
-    #[allow(unused_variables)]
-    macro_rules! print {
-        ($($args:tt)+) => ({
-            ()
+                let _ = write!(crate::print::print_hardware::SUPERVISOR_UART, $($args)+);
         });
     }
 }

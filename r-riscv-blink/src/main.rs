@@ -7,7 +7,7 @@ use icebesoc_pac;
 use fomu_rt::entry;
 
 mod timer;
-mod debug;
+mod print;
 
 use timer::Timer;
 

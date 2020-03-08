@@ -6,7 +6,7 @@ The goal is to create a simple SOC that can be programmed from C, Rust or microp
 
 Run the SOC build script and upload the bitstream to your iCEBreaker:
 ```
-./icebreaker.py --cpu --debug
+./icebreaker.py --debug
 iceprog soc_basesoc_icebreaker/gateware/top.bin
 ```
 

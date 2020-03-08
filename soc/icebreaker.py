@@ -181,6 +181,7 @@ def main():
     parser.add_argument("--nextpnr-seed", default=0, help="Select nextpnr pseudo random seed")
     parser.add_argument("--nextpnr-placer", default="heap", choices=["sa", "heap"], help="Select nextpnr placer algorithm")
     parser.add_argument("--debug", action="store_true", help="Enable debug features. (UART has to be used with the wishbone-tool.)")
+    parser.add_argument("--document-only", action="store_true", help="Do not build a soc. Only generate documentation.")
     builder_args(parser)
     soc_core_args(parser)
     args = parser.parse_args()
@@ -192,6 +193,8 @@ def main():
     # Don't build software -- we don't include it since we just jump to SPI flash.
     builder_kwargs = builder_argdict(args)
     builder_kwargs["compile_software"] = False
+    if args.document_only:
+        builder_kwargs["compile_gateware"] = False
     builder = Builder(soc, **builder_kwargs)
     vns = builder.build()
     soc.do_exit(vns)

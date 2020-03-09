@@ -1,4 +1,4 @@
-Welcome to the example code for litex riscv soc on iCEBreaker.
+Welcome to the C example code for LiteX RISC-V SOC on iCEBreaker.
 
 ## Install
 

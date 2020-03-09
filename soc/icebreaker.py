@@ -35,6 +35,7 @@ from litex.soc.cores.gpio import GPIOOut
 
 import litex.soc.doc as lxsocdoc
 
+
 class JumpToAddressROM(wishbone.SRAM):
     def __init__(self, size, addr):
         data = [
@@ -142,6 +143,10 @@ class BaseSoC(SoCCore):
         self.submodules.leds = GPIOOut(Cat(
             platform.request("user_ledr_n"),
             platform.request("user_ledg_n")))
+
+        self.leds._out.description = """This register gives you control over the two on board LED of the iCEBreaker.
+        The bits are inverted as these are negative logic LED. This means that if you set bit [0] to 1 the Green LED
+        will be off, if you set it to 0 the Green LED will be on. The same applies to bit [1] that controls the Red LED."""
 
         self.add_csr("leds")
 

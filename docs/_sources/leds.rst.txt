@@ -1,6 +1,12 @@
 LEDS
 ====
 
+iCEBreaker LED control.
+-----------------------
+The LEDs are inverted as these are negative logic LED. This means that if you set the
+corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED will be on.
+
+
 Register Listing for LEDS
 -------------------------
 
@@ -15,19 +21,24 @@ LEDS_OUT
 
 `Address: 0xe0003000 + 0x0 = 0xe0003000`
 
-    This register gives you control over the two on board LED of the iCEBreaker. The
-    bits are inverted as these are negative logic LED. This means that if you set
-    bit [0] to 1 the Green LED will be off, if you set it to 0 the Green LED will be
-    on. The same applies to bit [1] that controls the Red LED.
 
     .. wavedrom::
         :caption: LEDS_OUT
 
         {
             "reg": [
-                {"name": "out[1:0]", "bits": 2},
-                {"bits": 6},
+                {"name": "ledr",  "bits": 1},
+                {"name": "ledg",  "bits": 1},
+                {"bits": 6}
             ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
         }
 
+
++-------+------+---------------------------------------------+
+| Field | Name | Description                                 |
++=======+======+=============================================+
+| [0]   | LEDR | The Red LED on the main iCEBreaker board.   |
++-------+------+---------------------------------------------+
+| [1]   | LEDG | The Green LED on the main iCEBreaker board. |
++-------+------+---------------------------------------------+
 

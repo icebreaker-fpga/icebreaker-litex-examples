@@ -31,7 +31,7 @@ from litex_boards.platforms.icebreaker import Platform
 
 from litex.soc.interconnect import wishbone
 from litex.soc.cores.uart import UARTWishboneBridge
-from litex.soc.cores.gpio import GPIOOut
+from rtl.leds import Leds
 
 import litex.soc.doc as lxsocdoc
 
@@ -140,13 +140,13 @@ class BaseSoC(SoCCore):
             if hasattr(self, "cpu") and self.cpu.name == "vexriscv":
                 self.register_mem("vexriscv_debug", 0xf00f0000, self.cpu.debug_bus, 0x100)
 
-        self.submodules.leds = GPIOOut(Cat(
+        self.submodules.leds = Leds(Cat(
             platform.request("user_ledr_n"),
-            platform.request("user_ledg_n")))
-
-        self.leds._out.description = """This register gives you control over the two on board LED of the iCEBreaker.
-        The bits are inverted as these are negative logic LED. This means that if you set bit [0] to 1 the Green LED
-        will be off, if you set it to 0 the Green LED will be on. The same applies to bit [1] that controls the Red LED."""
+            platform.request("user_ledg_n")),
+            led_polarity=0x03,
+            led_name=[
+                ["ledr", "The Red LED on the main iCEBreaker board."],
+                ["ledg", "The Green LED on the main iCEBreaker board."]])
 
         self.add_csr("leds")
 

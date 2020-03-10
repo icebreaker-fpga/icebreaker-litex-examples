@@ -4,6 +4,7 @@ pub struct Leds {
     registers: LEDS,
 }
 
+#[allow(dead_code)]
 impl Leds {
     pub fn new(registers: LEDS) -> Self {
         Self { registers }
@@ -29,7 +30,11 @@ impl Leds {
     }
 
     pub fn toggle(&mut self) {
-        let val: u8 = self.registers.out.read().bits() ^ 0xFF;
+        self.toggle_mask(0xFF);
+    }
+
+    pub fn toggle_mask(&mut self, mask: u8) {
+        let val: u8 = self.registers.out.read().bits() ^ mask;
         unsafe {
             self.registers.out.write(|w| w.bits(val));
         }

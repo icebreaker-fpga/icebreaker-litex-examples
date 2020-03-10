@@ -35,6 +35,11 @@
             
   <div class="section" id="leds">
 <h1>LEDS<a class="headerlink" href="#leds" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="icebreaker-led-control">
+<h2>iCEBreaker LED control.<a class="headerlink" href="#icebreaker-led-control" title="Permalink to this headline">¶</a></h2>
+<p>The LEDs are inverted as these are negative logic LED. This means that if you set the
+corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED will be on.</p>
+</div>
 <div class="section" id="register-listing-for-leds">
 <h2>Register Listing for LEDS<a class="headerlink" href="#register-listing-for-leds" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
@@ -57,22 +62,42 @@
 <h3>LEDS_OUT<a class="headerlink" href="#leds-out" title="Permalink to this headline">¶</a></h3>
 <p><cite>Address: 0xe0003000 + 0x0 = 0xe0003000</cite></p>
 <blockquote>
-<div><p>This register gives you control over the two on board LED of the iCEBreaker. The
-bits are inverted as these are negative logic LED. This means that if you set
-bit [0] to 1 the Green LED will be off, if you set it to 0 the Green LED will be
-on. The same applies to bit [1] that controls the Red LED.</p>
-
+<div>
 <div style="overflow-x:auto">
 <script type="WaveDrom">
 {
     "reg": [
-        {"name": "out[1:0]", "bits": 2},
-        {"bits": 6},
+        {"name": "ledr",  "bits": 1},
+        {"name": "ledg",  "bits": 1},
+        {"bits": 6}
     ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
 }
 </script>
 </div>
 </div></blockquote>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>[0]</p></td>
+<td><p>LEDR</p></td>
+<td><p>The Red LED on the main iCEBreaker board.</p></td>
+</tr>
+<tr class="row-odd"><td><p>[1]</p></td>
+<td><p>LEDG</p></td>
+<td><p>The Green LED on the main iCEBreaker board.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

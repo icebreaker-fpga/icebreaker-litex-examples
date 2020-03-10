@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
-    <vendor>1bitsquared</vendor>
-    <name>iCEBESOC</name>
+    <vendor>1BitSquared</vendor>
+    <name>LEDS</name>
 
     <addressUnitBits>8</addressUnitBits>
     <width>32</width>
@@ -742,10 +742,18 @@ to perform half-duplex operations, using this SPI core.]]></description>
                     <access>read-write</access>
                     <fields>
                         <field>
-                            <name>out</name>
-                            <msb>1</msb>
-                            <bitRange>[1:0]</bitRange>
+                            <name>ledr</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
                             <lsb>0</lsb>
+                            <description><![CDATA[The Red LED on the main iCEBreaker board.]]></description>
+                        </field>
+                        <field>
+                            <name>ledg</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[The Green LED on the main iCEBreaker board.]]></description>
                         </field>
                     </fields>
                 </register>

@@ -204,7 +204,7 @@ def main():
     vns = builder.build()
     soc.do_exit(vns)
     lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
-    # lxsocdoc.generate_svd(soc, "build/software", vendor="1BitSquared", name="iCEBESOC")
+    lxsocdoc.generate_svd(soc, "../rust/icebesoc-pac", vendor="1BitSquared", name="iCEBESOC")
 
 
 if __name__ == "__main__":

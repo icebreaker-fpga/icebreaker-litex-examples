@@ -8,8 +8,7 @@ edition = "2018"
 
 [dependencies]
 icebesoc-pac = { path = "../rust/icebesoc-pac" }
-fomu-rt  = "0.0.4" 
-
+riscv-rt  = "0.7.0"
 panic-halt = "0.2"
 
 [profile.release]

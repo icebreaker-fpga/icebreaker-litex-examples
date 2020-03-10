@@ -144,17 +144,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "fomu-rt"
-version = "0.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "707861803ad6fb2546cc7d3bbaed02e27633e6c27629938cf0b7cebc149dce4b"
-dependencies = [
- "r0",
- "riscv-rt-macros",
- "vexriscv",
-]
-
-[[package]]
 name = "hermit-abi"
 version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -177,9 +166,9 @@ name = "icebesoc-pac"
 version = "0.0.1"
 dependencies = [
  "bare-metal",
+ "riscv",
  "svd2rust",
  "vcell",
- "vexriscv",
 ]
 
 [[package]]
@@ -267,16 +256,16 @@ dependencies = [
 name = "r-riscv-blink"
 version = "0.1.0"
 dependencies = [
- "fomu-rt",
  "icebesoc-pac",
  "panic-halt",
+ "riscv-rt",
 ]
 
 [[package]]
 name = "r0"
-version = "0.2.2"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2a38df5b15c8d5c7e8654189744d8e396bddc18ad48041a500ce52d6948941f"
+checksum = "bd7a31eed1591dcbc95d92ad7161908e72f4677f8fabf2a32ca49b4237cbf211"
 
 [[package]]
 name = "rand"
@@ -319,6 +308,27 @@ name = "regex-syntax"
 version = "0.6.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1132f845907680735a84409c3bebc64d1364a5683ffbce899550cd09d5eaefc1"
+
+[[package]]
+name = "riscv"
+version = "0.5.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7e9a059eb11caef6b160daaad9e18209804451dc687b3ef23e9e19f4784e93da"
+dependencies = [
+ "bare-metal",
+ "bit_field",
+]
+
+[[package]]
+name = "riscv-rt"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5f44895e255d8e4e6b5e20e95ec7d3c09e376187c5de6eb066b55dbd32c22250"
+dependencies = [
+ "r0",
+ "riscv",
+ "riscv-rt-macros",
+]
 
 [[package]]
 name = "riscv-rt-macros"
@@ -502,16 +512,6 @@ name = "version_check"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "078775d0255232fb988e6fccf26ddc9d1ac274299aaedcedce21c6f72cc533ce"
-
-[[package]]
-name = "vexriscv"
-version = "0.0.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a8cca4a24ec0049cadb38a5a0767529d28f3ea7bb5e5233b8f6cc02a1d8f0a51"
-dependencies = [
- "bare-metal",
- "bit_field",
-]
 
 [[package]]
 name = "winapi"

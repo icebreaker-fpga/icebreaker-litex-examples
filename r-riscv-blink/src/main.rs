@@ -4,7 +4,7 @@
 extern crate panic_halt;
 
 use icebesoc_pac;
-use fomu_rt::entry;
+use riscv_rt::entry;
 
 mod timer;
 mod leds;

@@ -16,6 +16,7 @@ LX_DEPENDENCIES = ["riscv", "icestorm", "yosys", "nextpnr-ice40"]
 # Import lxbuildenv to integrate the deps/ directory
 import lxbuildenv
 
+import os
 import argparse
 
 from migen import *
@@ -205,6 +206,24 @@ def main():
     soc.do_exit(vns)
     lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
     lxsocdoc.generate_svd(soc, "../rust/icebesoc-pac", vendor="1BitSquared", name="iCEBESOC")
+
+    # Generate memory.x
+    in_path = os.path.join(builder.output_dir, "software", "include", "generated", "regions.ld")
+    mem_map = open(in_path, "rt").read()
+    f = open("../rust/icebesoc-pac/memory.x", "wt")
+    f.write(mem_map)
+    f.write("""
+REGION_ALIAS("REGION_TEXT", spiflash);
+REGION_ALIAS("REGION_RODATA", spiflash);
+REGION_ALIAS("REGION_DATA", sram);
+REGION_ALIAS("REGION_BSS", sram);
+REGION_ALIAS("REGION_HEAP", sram);
+REGION_ALIAS("REGION_STACK", sram);
+
+/* Skip first 256k allocated for bitstream */
+_stext = 0x20040000;
+""")
+    f.close()
 
 
 if __name__ == "__main__":

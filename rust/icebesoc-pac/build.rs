@@ -1,8 +1,15 @@
-use std::fs;
+use std::{env, fs};
 use std::io::Write;
+use std::path::PathBuf;
 
 extern crate svd2rust;
 fn main() {
+    // Put the memory definitions somewhere the linker can find it
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+    println!("cargo:rustc-link-search={}", out_dir.display());
+    fs::copy("memory.x", out_dir.join("memory.x")).unwrap();
+    println!("cargo:rerun-if-changed=memory.x");
+
     // If the svd file changes, rebuild this crate
     println!("cargo:rerun-if-changed=iCEBESOC.svd");
     let svd = String::from_utf8(include_bytes!("iCEBESOC.svd").to_vec())

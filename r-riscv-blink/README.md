@@ -26,7 +26,7 @@ To learn more about Rust embedded, take a look at the Rust [embedded book](https
 Build and flash the firmware for your soc by running:
 ```
 cargo build --release
-./flash.sh
+cargo run --release
 ```
 
 The two LED Red and Green should blink alternating.

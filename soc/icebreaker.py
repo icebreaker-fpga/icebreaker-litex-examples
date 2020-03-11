@@ -217,11 +217,12 @@ def main():
     builder_kwargs["compile_software"] = False
     if args.document_only:
         builder_kwargs["compile_gateware"] = False
+    if builder_kwargs["csr_svd"] is None:
+        builder_kwargs["csr_svd"] = "../rust/icebesoc-pac/iCEBESOC.svd"
     builder = Builder(soc, **builder_kwargs)
     builder.build()
-    lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
-    lxsocdoc.generate_svd(soc, "../rust/icebesoc-pac", vendor="1BitSquared", name="iCEBESOC")
     soc.generate_memory_x("../rust/icebesoc-pac/")
+    lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
 
 
 if __name__ == "__main__":

@@ -35,6 +35,8 @@ from litex.soc.cores.uart import UARTWishboneBridge
 from rtl.leds import Leds
 
 import litex.soc.doc as lxsocdoc
+from litex.soc.integration import export
+from litex.build.tools import write_to_file
 
 
 class JumpToAddressROM(wishbone.SRAM):
@@ -178,9 +180,25 @@ class BaseSoC(SoCCore):
             "icepack -s {build_name}.txt {build_name}.bin"
         ]
 
+    def generate_memory_x(self, destination):
+        write_to_file(os.path.join(destination, "memory.x"), get_memory_x(self.mem_regions, self.cpu.reset_address))
+
+
+def get_memory_x(mem_regions, cpu_reset_address):
+    r = export.get_linker_regions(mem_regions)
+    r += '\n'
+    r += 'REGION_ALIAS("REGION_TEXT", spiflash);\n'
+    r += 'REGION_ALIAS("REGION_RODATA", spiflash);\n'
+    r += 'REGION_ALIAS("REGION_DATA", sram);\n'
+    r += 'REGION_ALIAS("REGION_BSS", sram);\n'
+    r += 'REGION_ALIAS("REGION_HEAP", sram);\n'
+    r += 'REGION_ALIAS("REGION_STACK", sram);\n\n'
+    r += '/* CPU reset location. */\n'
+    r += '_stext = {:#08x};\n'.format(cpu_reset_address)
+    return r
+
+
 # Build --------------------------------------------------------------------------------------------
-
-
 def main():
     parser = argparse.ArgumentParser(description="LiteX SoC on iCEBreaker")
     parser.add_argument("--nextpnr-seed", default=0, help="Select nextpnr pseudo random seed")
@@ -194,7 +212,6 @@ def main():
     soc = BaseSoC(debug=args.debug, **soc_core_argdict(args))
     soc.set_yosys_nextpnr_settings(nextpnr_seed=args.nextpnr_seed, nextpnr_placer=args.nextpnr_placer)
 
-
     # Don't build software -- we don't include it since we just jump to SPI flash.
     builder_kwargs = builder_argdict(args)
     builder_kwargs["compile_software"] = False
@@ -204,24 +221,7 @@ def main():
     builder.build()
     lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
     lxsocdoc.generate_svd(soc, "../rust/icebesoc-pac", vendor="1BitSquared", name="iCEBESOC")
-
-    # Generate memory.x
-    in_path = os.path.join(builder.output_dir, "software", "include", "generated", "regions.ld")
-    mem_map = open(in_path, "rt").read()
-    f = open("../rust/icebesoc-pac/memory.x", "wt")
-    f.write(mem_map)
-    f.write("""
-REGION_ALIAS("REGION_TEXT", spiflash);
-REGION_ALIAS("REGION_RODATA", spiflash);
-REGION_ALIAS("REGION_DATA", sram);
-REGION_ALIAS("REGION_BSS", sram);
-REGION_ALIAS("REGION_HEAP", sram);
-REGION_ALIAS("REGION_STACK", sram);
-
-/* Skip first 256k allocated for bitstream */
-_stext = 0x20040000;
-""")
-    f.close()
+    soc.generate_memory_x("../rust/icebesoc-pac/")
 
 
 if __name__ == "__main__":

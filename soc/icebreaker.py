@@ -178,7 +178,6 @@ class BaseSoC(SoCCore):
             "icepack -s {build_name}.txt {build_name}.bin"
         ]
 
-
 # Build --------------------------------------------------------------------------------------------
 
 
@@ -202,8 +201,7 @@ def main():
     if args.document_only:
         builder_kwargs["compile_gateware"] = False
     builder = Builder(soc, **builder_kwargs)
-    vns = builder.build()
-    soc.do_exit(vns)
+    builder.build()
     lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
     lxsocdoc.generate_svd(soc, "../rust/icebesoc-pac", vendor="1BitSquared", name="iCEBESOC")
 

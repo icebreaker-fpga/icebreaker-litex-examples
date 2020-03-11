@@ -12,5 +12,5 @@ REGION_ALIAS("REGION_BSS", sram);
 REGION_ALIAS("REGION_HEAP", sram);
 REGION_ALIAS("REGION_STACK", sram);
 
-/* Skip first 256k allocated for bitstream */
+/* CPU reset location. */
 _stext = 0x20040000;

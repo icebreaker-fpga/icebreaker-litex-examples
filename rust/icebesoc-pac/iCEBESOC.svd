@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
-    <vendor>1BitSquared</vendor>
+    <vendor>litex</vendor>
     <name>LEDS</name>
 
     <addressUnitBits>8</addressUnitBits>
@@ -22,7 +22,7 @@
                     <description><![CDATA[Write a ``1`` to this register to reset the SoC.]]></description>
                     <addressOffset>0x0000</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -34,132 +34,35 @@
                     </fields>
                 </register>
                 <register>
-                    <name>SCRATCH3</name>
-                    <description><![CDATA[Bits 24-31 of `CTRL_SCRATCH`. Use this register as a scratch space to verify
-that software read/write accesses to the Wishbone/CSR bus are working correctly.
-The initial reset value of 0x1234578 can be used to verify endianness.]]></description>
+                    <name>SCRATCH</name>
+                    <description><![CDATA[Use this register as a scratch space to verify that software read/write accesses
+to the Wishbone/CSR bus are working correctly. The initial reset value of
+0x1234578 can be used to verify endianness.]]></description>
                     <addressOffset>0x0004</addressOffset>
-                    <resetValue>0x12</resetValue>
-                    <size>8</size>
+                    <resetValue>0x12345678</resetValue>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
                             <name>scratch</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
                             <lsb>0</lsb>
                         </field>
                     </fields>
                 </register>
                 <register>
-                    <name>SCRATCH2</name>
-                    <description><![CDATA[Bits 16-23 of `CTRL_SCRATCH`.]]></description>
+                    <name>BUS_ERRORS</name>
+                    <description><![CDATA[Total number of Wishbone bus errors (timeouts) since last reset.]]></description>
                     <addressOffset>0x0008</addressOffset>
-                    <resetValue>0x34</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>scratch</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>SCRATCH1</name>
-                    <description><![CDATA[Bits 8-15 of `CTRL_SCRATCH`.]]></description>
-                    <addressOffset>0x000c</addressOffset>
-                    <resetValue>0x56</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>scratch</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>SCRATCH0</name>
-                    <description><![CDATA[Bits 0-7 of `CTRL_SCRATCH`.]]></description>
-                    <addressOffset>0x0010</addressOffset>
-                    <resetValue>0x78</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>scratch</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>BUS_ERRORS3</name>
-                    <description><![CDATA[Bits 24-31 of `CTRL_BUS_ERRORS`. Total number of Wishbone bus errors (timeouts)
-since last reset.]]></description>
-                    <addressOffset>0x0014</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-only</access>
                     <fields>
                         <field>
                             <name>bus_errors</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>BUS_ERRORS2</name>
-                    <description><![CDATA[Bits 16-23 of `CTRL_BUS_ERRORS`.]]></description>
-                    <addressOffset>0x0018</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-only</access>
-                    <fields>
-                        <field>
-                            <name>bus_errors</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>BUS_ERRORS1</name>
-                    <description><![CDATA[Bits 8-15 of `CTRL_BUS_ERRORS`.]]></description>
-                    <addressOffset>0x001c</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-only</access>
-                    <fields>
-                        <field>
-                            <name>bus_errors</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>BUS_ERRORS0</name>
-                    <description><![CDATA[Bits 0-7 of `CTRL_BUS_ERRORS`.]]></description>
-                    <addressOffset>0x0020</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-only</access>
-                    <fields>
-                        <field>
-                            <name>bus_errors</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
                             <lsb>0</lsb>
                         </field>
                     </fields>
@@ -167,7 +70,7 @@ since last reset.]]></description>
             </registers>
             <addressBlock>
                 <offset>0</offset>
-                <size>0x24</size>
+                <size>0xc</size>
                 <usage>registers</usage>
             </addressBlock>
         </peripheral>
@@ -177,65 +80,16 @@ since last reset.]]></description>
             <groupName>UART_PHY</groupName>
             <registers>
                 <register>
-                    <name>TUNING_WORD3</name>
-                    <description><![CDATA[Bits 24-31 of `UART_PHY_TUNING_WORD`.]]></description>
+                    <name>TUNING_WORD</name>
                     <addressOffset>0x0000</addressOffset>
-                    <resetValue>0x02</resetValue>
-                    <size>8</size>
+                    <resetValue>0x2752546</resetValue>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
                             <name>tuning_word</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>TUNING_WORD2</name>
-                    <description><![CDATA[Bits 16-23 of `UART_PHY_TUNING_WORD`.]]></description>
-                    <addressOffset>0x0004</addressOffset>
-                    <resetValue>0x75</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>tuning_word</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>TUNING_WORD1</name>
-                    <description><![CDATA[Bits 8-15 of `UART_PHY_TUNING_WORD`.]]></description>
-                    <addressOffset>0x0008</addressOffset>
-                    <resetValue>0x25</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>tuning_word</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>TUNING_WORD0</name>
-                    <description><![CDATA[Bits 0-7 of `UART_PHY_TUNING_WORD`.]]></description>
-                    <addressOffset>0x000c</addressOffset>
-                    <resetValue>0x46</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>tuning_word</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
                             <lsb>0</lsb>
                         </field>
                     </fields>
@@ -243,7 +97,7 @@ since last reset.]]></description>
             </registers>
             <addressBlock>
                 <offset>0</offset>
-                <size>0x10</size>
+                <size>0x4</size>
                 <usage>registers</usage>
             </addressBlock>
         </peripheral>
@@ -256,7 +110,7 @@ since last reset.]]></description>
                     <name>RXTX</name>
                     <addressOffset>0x0000</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -271,7 +125,7 @@ since last reset.]]></description>
                     <name>TXFULL</name>
                     <addressOffset>0x0004</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-only</access>
                     <fields>
                         <field>
@@ -286,7 +140,7 @@ since last reset.]]></description>
                     <name>RXEMPTY</name>
                     <addressOffset>0x0008</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-only</access>
                     <fields>
                         <field>
@@ -301,7 +155,7 @@ since last reset.]]></description>
                     <name>EV_STATUS</name>
                     <addressOffset>0x000c</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -316,7 +170,7 @@ since last reset.]]></description>
                     <name>EV_PENDING</name>
                     <addressOffset>0x0010</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -331,7 +185,7 @@ since last reset.]]></description>
                     <name>EV_ENABLE</name>
                     <addressOffset>0x0014</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -359,133 +213,35 @@ since last reset.]]></description>
             <groupName>TIMER0</groupName>
             <registers>
                 <register>
-                    <name>LOAD3</name>
-                    <description><![CDATA[Bits 24-31 of `TIMER0_LOAD`. Load value when Timer is (re-)enabled. In One-Shot
-mode, the value written to this register specifies the Timer's duration in clock
-cycles.]]></description>
+                    <name>LOAD</name>
+                    <description><![CDATA[Load value when Timer is (re-)enabled. In One-Shot mode, the value written to
+this register specifies the Timer's duration in clock cycles.]]></description>
                     <addressOffset>0x0000</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
                             <name>load</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
                             <lsb>0</lsb>
                         </field>
                     </fields>
                 </register>
                 <register>
-                    <name>LOAD2</name>
-                    <description><![CDATA[Bits 16-23 of `TIMER0_LOAD`.]]></description>
+                    <name>RELOAD</name>
+                    <description><![CDATA[Reload value when Timer reaches ``0``. In Periodic mode, the value written to
+this register specify the Timer's period in clock cycles.]]></description>
                     <addressOffset>0x0004</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>load</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>LOAD1</name>
-                    <description><![CDATA[Bits 8-15 of `TIMER0_LOAD`.]]></description>
-                    <addressOffset>0x0008</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>load</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>LOAD0</name>
-                    <description><![CDATA[Bits 0-7 of `TIMER0_LOAD`.]]></description>
-                    <addressOffset>0x000c</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>load</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>RELOAD3</name>
-                    <description><![CDATA[Bits 24-31 of `TIMER0_RELOAD`. Reload value when Timer reaches ``0``. In
-Periodic mode, the value written to this register specify the Timer's period in
-clock cycles.]]></description>
-                    <addressOffset>0x0010</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
                             <name>reload</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>RELOAD2</name>
-                    <description><![CDATA[Bits 16-23 of `TIMER0_RELOAD`.]]></description>
-                    <addressOffset>0x0014</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>reload</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>RELOAD1</name>
-                    <description><![CDATA[Bits 8-15 of `TIMER0_RELOAD`.]]></description>
-                    <addressOffset>0x0018</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>reload</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>RELOAD0</name>
-                    <description><![CDATA[Bits 0-7 of `TIMER0_RELOAD`.]]></description>
-                    <addressOffset>0x001c</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-write</access>
-                    <fields>
-                        <field>
-                            <name>reload</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
                             <lsb>0</lsb>
                         </field>
                     </fields>
@@ -494,9 +250,9 @@ clock cycles.]]></description>
                     <name>EN</name>
                     <description><![CDATA[Enable flag of the Timer. Set this flag to ``1`` to enable/start the Timer.  Set
 to ``0`` to disable the Timer.]]></description>
-                    <addressOffset>0x0020</addressOffset>
+                    <addressOffset>0x0008</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -511,9 +267,9 @@ to ``0`` to disable the Timer.]]></description>
                     <name>UPDATE_VALUE</name>
                     <description><![CDATA[Update trigger for the current countdown value. A write to this register latches
 the current countdown value to ``value`` register.]]></description>
-                    <addressOffset>0x0024</addressOffset>
+                    <addressOffset>0x000c</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -525,75 +281,26 @@ the current countdown value to ``value`` register.]]></description>
                     </fields>
                 </register>
                 <register>
-                    <name>VALUE3</name>
-                    <description><![CDATA[Bits 24-31 of `TIMER0_VALUE`. Latched countdown value. This value is updated by
-writing to ``update_value``.]]></description>
-                    <addressOffset>0x0028</addressOffset>
+                    <name>VALUE</name>
+                    <description><![CDATA[Latched countdown value. This value is updated by writing to ``update_value``.]]></description>
+                    <addressOffset>0x0010</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-only</access>
                     <fields>
                         <field>
                             <name>value</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>VALUE2</name>
-                    <description><![CDATA[Bits 16-23 of `TIMER0_VALUE`.]]></description>
-                    <addressOffset>0x002c</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-only</access>
-                    <fields>
-                        <field>
-                            <name>value</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>VALUE1</name>
-                    <description><![CDATA[Bits 8-15 of `TIMER0_VALUE`.]]></description>
-                    <addressOffset>0x0030</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-only</access>
-                    <fields>
-                        <field>
-                            <name>value</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
-                            <lsb>0</lsb>
-                        </field>
-                    </fields>
-                </register>
-                <register>
-                    <name>VALUE0</name>
-                    <description><![CDATA[Bits 0-7 of `TIMER0_VALUE`.]]></description>
-                    <addressOffset>0x0034</addressOffset>
-                    <resetValue>0x00</resetValue>
-                    <size>8</size>
-                    <access>read-only</access>
-                    <fields>
-                        <field>
-                            <name>value</name>
-                            <msb>7</msb>
-                            <bitRange>[7:0]</bitRange>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
                             <lsb>0</lsb>
                         </field>
                     </fields>
                 </register>
                 <register>
                     <name>EV_STATUS</name>
-                    <addressOffset>0x0038</addressOffset>
+                    <addressOffset>0x0014</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -606,9 +313,9 @@ writing to ``update_value``.]]></description>
                 </register>
                 <register>
                     <name>EV_PENDING</name>
-                    <addressOffset>0x003c</addressOffset>
+                    <addressOffset>0x0018</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -621,9 +328,9 @@ writing to ``update_value``.]]></description>
                 </register>
                 <register>
                     <name>EV_ENABLE</name>
-                    <addressOffset>0x0040</addressOffset>
+                    <addressOffset>0x001c</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -637,7 +344,7 @@ writing to ``update_value``.]]></description>
             </registers>
             <addressBlock>
                 <offset>0</offset>
-                <size>0x44</size>
+                <size>0x20</size>
                 <usage>registers</usage>
             </addressBlock>
             <interrupt>
@@ -657,7 +364,7 @@ result all four wires are ganged together.  This means that it is only possible
 to perform half-duplex operations, using this SPI core.]]></description>
                     <addressOffset>0x0000</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -695,7 +402,7 @@ to perform half-duplex operations, using this SPI core.]]></description>
                     <description><![CDATA[Incoming value of MISO signal.]]></description>
                     <addressOffset>0x0004</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-only</access>
                     <fields>
                         <field>
@@ -711,7 +418,7 @@ to perform half-duplex operations, using this SPI core.]]></description>
                     <description><![CDATA[Write a ``1`` here to disable memory-mapped mode and enable bitbang mode.]]></description>
                     <addressOffset>0x0008</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>
@@ -738,7 +445,7 @@ to perform half-duplex operations, using this SPI core.]]></description>
                     <name>OUT</name>
                     <addressOffset>0x0000</addressOffset>
                     <resetValue>0x00</resetValue>
-                    <size>8</size>
+                    <size>32</size>
                     <access>read-write</access>
                     <fields>
                         <field>

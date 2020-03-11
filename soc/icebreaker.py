@@ -112,6 +112,8 @@ class BaseSoC(SoCCore):
         kwargs["integrated_sram_size"] = 0
         kwargs["integrated_rom_size"]  = 0
 
+        kwargs["csr_data_width"] = 32
+
         SoCCore.__init__(self, platform, clk_freq, **kwargs)
 
         # If there is a VexRiscv CPU, add a fake ROM that simply tells the CPU

@@ -104,6 +104,8 @@ class BaseSoC(SoCCore):
         kwargs["integrated_sram_size"] = 0
         kwargs["integrated_rom_size"]  = 0
 
+        kwargs["csr_data_width"] = 32
+
         # Set CPU reset address
         kwargs["cpu_reset_address"] = self.mem_map["spiflash"] + flash_offset
 

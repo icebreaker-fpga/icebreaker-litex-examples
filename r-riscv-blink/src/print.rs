@@ -12,7 +12,7 @@ impl Uart {
                 while reg.txfull.read().bits() != 0 {
                     ()
                 }
-                reg.rxtx.write(|w| w.bits(c));
+                reg.rxtx.write(|w| w.rxtx().bits(c));
             },
             None => ()
         }

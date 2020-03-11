@@ -11,30 +11,30 @@ impl Leds {
     }
 
     pub fn set(&mut self, red: bool, green: bool) {
-        let val: u8 = if red {0} else {1} | if green {0} else {2};
-        unsafe {
-            self.registers.out.write(|w| w.bits(val));
-        }
+        self.registers.out.write(|w| {
+            w.ledr().bit(red);
+            w.ledg().bit(green)
+        });
     }
 
     pub fn off(&mut self) {
-        unsafe {
-            self.registers.out.write(|w| w.bits(3));
-        }
-    }
-
-    pub fn on(&mut self) {
         unsafe {
             self.registers.out.write(|w| w.bits(0));
         }
     }
 
-    pub fn toggle(&mut self) {
-        self.toggle_mask(0xFF);
+    pub fn on(&mut self) {
+        unsafe {
+            self.registers.out.write(|w| w.bits(3));
+        }
     }
 
-    pub fn toggle_mask(&mut self, mask: u8) {
-        let val: u8 = self.registers.out.read().bits() ^ mask;
+    pub fn toggle(&mut self) {
+        self.toggle_mask(0xFFFF_FFFF);
+    }
+
+    pub fn toggle_mask(&mut self, mask: u32) {
+        let val: u32 = self.registers.out.read().bits() ^ mask;
         unsafe {
             self.registers.out.write(|w| w.bits(val));
         }

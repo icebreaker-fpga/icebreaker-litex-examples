@@ -7,6 +7,9 @@ else
 CROSS_COMPILE       ?= riscv64-unknown-elf-
 endif
 
+# The offset we should use when flashing the binary into the iCEBreaker flash.
+FLASH_OFFSET := 0x00040000
+
 CC         := $(CROSS_COMPILE)gcc
 CXX        := $(CROSS_COMPILE)g++
 OBJCOPY    := $(CROSS_COMPILE)objcopy
@@ -119,7 +122,12 @@ $(OBJ_DIR)/%.o: %.S
 	$(QUIET) echo "  AS       $<	$(notdir $@)"
 	$(QUIET) $(CC) -x assembler-with-cpp -c $< $(CFLAGS) -o $@ -MMD
 
-.PHONY: clean
+prog: $(PACKAGE).bin
+	iceprog -o $(FLASH_OFFSET) $<
+
+sudo-prog: $(PACKAGE).bin
+	@echo 'Executing prog as root!!!'
+	sudo iceprog -o $(FLASH_OFFSET) $<
 
 clean:
 	$(QUIET) echo "  RM      $(subst /,$(PATH_SEP),$(wildcard $(OBJ_DIR)/*.d))"
@@ -130,3 +138,5 @@ clean:
 	-$(QUIET) $(RM) $(TARGET) $(PACKAGE).bin $(PACKAGE).symbol $(PACKAGE).ihex $(PACKAGE).dfu
 
 include $(wildcard $(OBJ_DIR)/*.d)
+
+.PHONY: clean prog sudo-prog

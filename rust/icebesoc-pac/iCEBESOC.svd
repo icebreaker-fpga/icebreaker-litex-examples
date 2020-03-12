@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
-    <vendor>1BitSquared</vendor>
+    <vendor>litex</vendor>
     <name>LEDS</name>
 
     <addressUnitBits>8</addressUnitBits>
@@ -646,9 +646,9 @@ writing to ``update_value``.]]></description>
             </interrupt>
         </peripheral>
         <peripheral>
-            <name>LXSPI</name>
+            <name>SPIFLASH</name>
             <baseAddress>0xE0002800</baseAddress>
-            <groupName>LXSPI</groupName>
+            <groupName>SPIFLASH</groupName>
             <registers>
                 <register>
                     <name>BITBANG</name>

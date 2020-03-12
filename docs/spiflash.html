@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>LXSPI &#8212; iCEBreaker LiteX Riscv Example SOC  documentation</title>
+    <title>SPIFLASH &#8212; iCEBreaker LiteX Riscv Example SOC  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -34,14 +34,14 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="lxspi">
-<h1>LXSPI<a class="headerlink" href="#lxspi" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="register-listing-for-lxspi">
-<h2>Register Listing for LXSPI<a class="headerlink" href="#register-listing-for-lxspi" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="spiflash">
+<h1>SPIFLASH<a class="headerlink" href="#spiflash" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="register-listing-for-spiflash">
+<h2>Register Listing for SPIFLASH<a class="headerlink" href="#register-listing-for-spiflash" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 54%" />
-<col style="width: 46%" />
+<col style="width: 55%" />
+<col style="width: 45%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Register</p></th>
@@ -49,19 +49,19 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="#lxspi-bitbang"><span class="std std-ref">LXSPI_BITBANG</span></a></p></td>
-<td><p><a class="reference internal" href="#lxspi-bitbang"><span class="std std-ref">0xe0002800</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spiflash-bitbang"><span class="std std-ref">SPIFLASH_BITBANG</span></a></p></td>
+<td><p><a class="reference internal" href="#spiflash-bitbang"><span class="std std-ref">0xe0002800</span></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#lxspi-miso"><span class="std std-ref">LXSPI_MISO</span></a></p></td>
-<td><p><a class="reference internal" href="#lxspi-miso"><span class="std std-ref">0xe0002804</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spiflash-miso"><span class="std std-ref">SPIFLASH_MISO</span></a></p></td>
+<td><p><a class="reference internal" href="#spiflash-miso"><span class="std std-ref">0xe0002804</span></a></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#lxspi-bitbang-en"><span class="std std-ref">LXSPI_BITBANG_EN</span></a></p></td>
-<td><p><a class="reference internal" href="#lxspi-bitbang-en"><span class="std std-ref">0xe0002808</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spiflash-bitbang-en"><span class="std std-ref">SPIFLASH_BITBANG_EN</span></a></p></td>
+<td><p><a class="reference internal" href="#spiflash-bitbang-en"><span class="std std-ref">0xe0002808</span></a></p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="lxspi-bitbang">
-<h3>LXSPI_BITBANG<a class="headerlink" href="#lxspi-bitbang" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="spiflash-bitbang">
+<h3>SPIFLASH_BITBANG<a class="headerlink" href="#spiflash-bitbang" title="Permalink to this headline">¶</a></h3>
 <p><cite>Address: 0xe0002800 + 0x0 = 0xe0002800</cite></p>
 <blockquote>
 <div><p>Bitbang controls for SPI output.  Only standard 1x SPI is supported, and as a
@@ -134,8 +134,8 @@ to perform half-duplex operations, using this SPI core.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="lxspi-miso">
-<h3>LXSPI_MISO<a class="headerlink" href="#lxspi-miso" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="spiflash-miso">
+<h3>SPIFLASH_MISO<a class="headerlink" href="#spiflash-miso" title="Permalink to this headline">¶</a></h3>
 <p><cite>Address: 0xe0002800 + 0x4 = 0xe0002804</cite></p>
 <blockquote>
 <div><p>Incoming value of MISO signal.</p>
@@ -152,8 +152,8 @@ to perform half-duplex operations, using this SPI core.</p>
 </div>
 </div></blockquote>
 </div>
-<div class="section" id="lxspi-bitbang-en">
-<h3>LXSPI_BITBANG_EN<a class="headerlink" href="#lxspi-bitbang-en" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="spiflash-bitbang-en">
+<h3>SPIFLASH_BITBANG_EN<a class="headerlink" href="#spiflash-bitbang-en" title="Permalink to this headline">¶</a></h3>
 <p><cite>Address: 0xe0002800 + 0x8 = 0xe0002808</cite></p>
 <blockquote>
 <div><p>Write a <code class="docutils literal notranslate"><span class="pre">1</span></code> here to disable memory-mapped mode and enable bitbang mode.</p>
@@ -204,7 +204,7 @@ to perform half-duplex operations, using this SPI core.</p>
 <li class="toctree-l1"><a class="reference internal" href="uart_phy.html">UART_PHY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="uart.html">UART</a></li>
 <li class="toctree-l1"><a class="reference internal" href="timer0.html">TIMER0</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">LXSPI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SPIFLASH</a></li>
 <li class="toctree-l1"><a class="reference internal" href="leds.html">LEDS</a></li>
 </ul>
 
@@ -247,7 +247,7 @@ to perform half-duplex operations, using this SPI core.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/lxspi.rst.txt"
+      <a href="_sources/spiflash.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -22,7 +22,7 @@ Register Groups
     uart_phy
     uart
     timer0
-    lxspi
+    spiflash
     leds
 
 Indices and tables

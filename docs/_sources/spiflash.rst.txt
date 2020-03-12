@@ -1,21 +1,21 @@
-LXSPI
-=====
+SPIFLASH
+========
 
-Register Listing for LXSPI
---------------------------
+Register Listing for SPIFLASH
+-----------------------------
 
-+--------------------------------------------+--------------------------------------+
-| Register                                   | Address                              |
-+============================================+======================================+
-| :ref:`LXSPI_BITBANG <LXSPI_BITBANG>`       | :ref:`0xe0002800 <LXSPI_BITBANG>`    |
-+--------------------------------------------+--------------------------------------+
-| :ref:`LXSPI_MISO <LXSPI_MISO>`             | :ref:`0xe0002804 <LXSPI_MISO>`       |
-+--------------------------------------------+--------------------------------------+
-| :ref:`LXSPI_BITBANG_EN <LXSPI_BITBANG_EN>` | :ref:`0xe0002808 <LXSPI_BITBANG_EN>` |
-+--------------------------------------------+--------------------------------------+
++--------------------------------------------------+-----------------------------------------+
+| Register                                         | Address                                 |
++==================================================+=========================================+
+| :ref:`SPIFLASH_BITBANG <SPIFLASH_BITBANG>`       | :ref:`0xe0002800 <SPIFLASH_BITBANG>`    |
++--------------------------------------------------+-----------------------------------------+
+| :ref:`SPIFLASH_MISO <SPIFLASH_MISO>`             | :ref:`0xe0002804 <SPIFLASH_MISO>`       |
++--------------------------------------------------+-----------------------------------------+
+| :ref:`SPIFLASH_BITBANG_EN <SPIFLASH_BITBANG_EN>` | :ref:`0xe0002808 <SPIFLASH_BITBANG_EN>` |
++--------------------------------------------------+-----------------------------------------+
 
-LXSPI_BITBANG
-^^^^^^^^^^^^^
+SPIFLASH_BITBANG
+^^^^^^^^^^^^^^^^
 
 `Address: 0xe0002800 + 0x0 = 0xe0002800`
 
@@ -24,7 +24,7 @@ LXSPI_BITBANG
     to perform half-duplex operations, using this SPI core.
 
     .. wavedrom::
-        :caption: LXSPI_BITBANG
+        :caption: SPIFLASH_BITBANG
 
         {
             "reg": [
@@ -57,15 +57,15 @@ LXSPI_BITBANG
 |       |      | +-------+-------------------------+                            |
 +-------+------+----------------------------------------------------------------+
 
-LXSPI_MISO
-^^^^^^^^^^
+SPIFLASH_MISO
+^^^^^^^^^^^^^
 
 `Address: 0xe0002800 + 0x4 = 0xe0002804`
 
     Incoming value of MISO signal.
 
     .. wavedrom::
-        :caption: LXSPI_MISO
+        :caption: SPIFLASH_MISO
 
         {
             "reg": [
@@ -75,15 +75,15 @@ LXSPI_MISO
         }
 
 
-LXSPI_BITBANG_EN
-^^^^^^^^^^^^^^^^
+SPIFLASH_BITBANG_EN
+^^^^^^^^^^^^^^^^^^^
 
 `Address: 0xe0002800 + 0x8 = 0xe0002808`
 
     Write a ``1`` here to disable memory-mapped mode and enable bitbang mode.
 
     .. wavedrom::
-        :caption: LXSPI_BITBANG_EN
+        :caption: SPIFLASH_BITBANG_EN
 
         {
             "reg": [

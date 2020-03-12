@@ -16,7 +16,6 @@ LX_DEPENDENCIES = ["riscv", "icestorm", "yosys", "nextpnr-ice40"]
 # Import lxbuildenv to integrate the deps/ directory
 import lxbuildenv
 
-import os
 import argparse
 
 from migen import *
@@ -36,8 +35,6 @@ from litex.soc.cores.uart import UARTWishboneBridge
 from rtl.leds import Leds
 
 import litex.soc.doc as lxsocdoc
-from litex.soc.integration import export
-from litex.build.tools import write_to_file
 
 
 # CRG ----------------------------------------------------------------------------------------------

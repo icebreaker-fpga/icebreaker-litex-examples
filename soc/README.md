@@ -7,8 +7,7 @@ micropython.
 
 Run the SOC build script and upload the bitstream to your iCEBreaker:
 ```
-./icebreaker.py --debug
-iceprog soc_basesoc_icebreaker/gateware/top.bin
+./icebreaker.py --debug --flash
 ```
 
 NOTE: The script should automatically download all python dependencies. You

@@ -23,6 +23,23 @@ result in a smaller SOC but you will loose the wishbone bridge that allows
 direct memory inspection and GDB debugging of your SOC. If you choose to omit
 the `--debug` option the UART can be used directly without the wishbone-tool.
 
+## Customization
+
+Because the SOC is a softcore for an FPGA we strive to prived a few examples
+regarding customization of the SOC. Here is a non exhaustive list of a few
+interesting parameters you can play with. Try the `--help` parameter to see the
+full list of parameters that our litex script accepts.
+
+### `--sys-clk-freq` System Clock Frequency
+
+You can choose a system clock frequency. The default external clock connected
+to the iCE40UP5k on the iCEBreaker is 12MHz (aka. 12e6). The default clock we
+select in our script is 21MHz (aka. 21e6). This causes our script to use a
+special PLL block in the FPGA to generate a 21MHz clock out of the 12MHz input
+clock. You can try selecting other clocks too and the script will try to
+generate a clock frequency that is as close as possible to the one you
+requested.
+
 ## Documentation
 
 The generator script also autogenerates Sphinx documentation that describes the

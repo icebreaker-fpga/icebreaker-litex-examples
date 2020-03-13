@@ -13,7 +13,7 @@ mod print;
 use timer::Timer;
 use leds::Leds;
 
-const SYSTEM_CLOCK_FREQUENCY: u32 = 12_000_000;
+const SYSTEM_CLOCK_FREQUENCY: u32 = 21_000_000;
 
 // This is the entry point for the application.
 // It is not allowed to return.

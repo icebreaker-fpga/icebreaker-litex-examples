@@ -82,7 +82,7 @@ to the Wishbone/CSR bus are working correctly. The initial reset value of
                 <register>
                     <name>TUNING_WORD</name>
                     <addressOffset>0x0000</addressOffset>
-                    <resetValue>0x2752546</resetValue>
+                    <resetValue>0x1678303</resetValue>
                     <size>32</size>
                     <access>read-write</access>
                     <fields>

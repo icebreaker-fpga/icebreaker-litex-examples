@@ -40,8 +40,8 @@
 <h2>Register Listing for UART_PHY<a class="headerlink" href="#register-listing-for-uart-phy" title="Permalink to this headline">¶</a></h2>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 56%" />
-<col style="width: 44%" />
+<col style="width: 55%" />
+<col style="width: 45%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Register</p></th>
@@ -49,83 +49,22 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="#uart-phy-tuning-word3"><span class="std std-ref">UART_PHY_TUNING_WORD3</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-phy-tuning-word3"><span class="std std-ref">0xe0001000</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#uart-phy-tuning-word2"><span class="std std-ref">UART_PHY_TUNING_WORD2</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-phy-tuning-word2"><span class="std std-ref">0xe0001004</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#uart-phy-tuning-word1"><span class="std std-ref">UART_PHY_TUNING_WORD1</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-phy-tuning-word1"><span class="std std-ref">0xe0001008</span></a></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#uart-phy-tuning-word0"><span class="std std-ref">UART_PHY_TUNING_WORD0</span></a></p></td>
-<td><p><a class="reference internal" href="#uart-phy-tuning-word0"><span class="std std-ref">0xe000100c</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#uart-phy-tuning-word"><span class="std std-ref">UART_PHY_TUNING_WORD</span></a></p></td>
+<td><p><a class="reference internal" href="#uart-phy-tuning-word"><span class="std std-ref">0xe0001000</span></a></p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="uart-phy-tuning-word3">
-<h3>UART_PHY_TUNING_WORD3<a class="headerlink" href="#uart-phy-tuning-word3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="uart-phy-tuning-word">
+<h3>UART_PHY_TUNING_WORD<a class="headerlink" href="#uart-phy-tuning-word" title="Permalink to this headline">¶</a></h3>
 <p><cite>Address: 0xe0001000 + 0x0 = 0xe0001000</cite></p>
 <blockquote>
-<div><p>Bits 24-31 of <cite>UART_PHY_TUNING_WORD</cite>.</p>
-
+<div>
 <div style="overflow-x:auto">
 <script type="WaveDrom">
 {
     "reg": [
-        {"name": "tuning_word[31:24]", "attr": 'reset: 2', "bits": 8}
-    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
-}
-</script>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="uart-phy-tuning-word2">
-<h3>UART_PHY_TUNING_WORD2<a class="headerlink" href="#uart-phy-tuning-word2" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001000 + 0x4 = 0xe0001004</cite></p>
-<blockquote>
-<div><p>Bits 16-23 of <cite>UART_PHY_TUNING_WORD</cite>.</p>
-
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "tuning_word[23:16]", "attr": 'reset: 117', "bits": 8}
-    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
-}
-</script>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="uart-phy-tuning-word1">
-<h3>UART_PHY_TUNING_WORD1<a class="headerlink" href="#uart-phy-tuning-word1" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001000 + 0x8 = 0xe0001008</cite></p>
-<blockquote>
-<div><p>Bits 8-15 of <cite>UART_PHY_TUNING_WORD</cite>.</p>
-
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "tuning_word[15:8]", "attr": 'reset: 37', "bits": 8}
-    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
-}
-</script>
-</div>
-</div></blockquote>
-</div>
-<div class="section" id="uart-phy-tuning-word0">
-<h3>UART_PHY_TUNING_WORD0<a class="headerlink" href="#uart-phy-tuning-word0" title="Permalink to this headline">¶</a></h3>
-<p><cite>Address: 0xe0001000 + 0xc = 0xe000100c</cite></p>
-<blockquote>
-<div><p>Bits 0-7 of <cite>UART_PHY_TUNING_WORD</cite>.</p>
-
-<div style="overflow-x:auto">
-<script type="WaveDrom">
-{
-    "reg": [
-        {"name": "tuning_word[7:0]", "attr": 'reset: 70', "bits": 8}
-    ], "config": {"hspace": 400, "bits": 8, "lanes": 1 }, "options": {"hspace": 400, "bits": 8, "lanes": 1}
+        {"name": "tuning_word[31:0]", "attr": 'reset: 23560963', "bits": 32}
+    ], "config": {"hspace": 400, "bits": 32, "lanes": 1 }, "options": {"hspace": 400, "bits": 32, "lanes": 1}
 }
 </script>
 </div>

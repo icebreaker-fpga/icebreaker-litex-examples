@@ -23,6 +23,7 @@ from migen.genlib.resetsync import AsyncResetSynchronizer
 
 from litex.soc.cores.up5kspram import Up5kSPRAM
 from litex.soc.cores.spi_flash import SpiFlash
+from litex.soc.cores.clock import iCE40PLL
 from litex.soc.integration.soc_core import SoCCore
 from litex.soc.integration.builder import Builder, builder_argdict, builder_args
 from litex.build.lattice.programmer import IceStormProgrammer
@@ -43,25 +44,34 @@ import litex.soc.doc as lxsocdoc
 class _CRG(Module, AutoDoc):
     """Icebreaker Clock Resource Generator
 
-    The whole system is clocked by the external 12MHz clock.
+    The system is clocked by the external 12MHz clock. But if a sys_clk_freq is set to a value
+    that is different from the default 12MHz we will feed it through the PLL block and try to
+    generate a clock as close as possible to the selected frequency.
     """
-    def __init__(self, platform):
+    def __init__(self, platform, sys_clk_freq):
         self.clock_domains.cd_sys = ClockDomain()
         self.clock_domains.cd_por = ClockDomain()
-        self.reset = Signal()
 
         # # #
-        reset_delay = Signal(12, reset=4095)
 
         # Clocks
         clk12 = platform.request("clk12")
-        platform.add_period_constraint(clk12, 1e9 / 12e6)
-        self.comb += self.cd_sys.clk.eq(clk12)
-        self.comb += self.cd_por.clk.eq(clk12)
-        self.comb += self.cd_sys.rst.eq(reset_delay != 0)
+        if sys_clk_freq == 12e6:
+            self.comb += self.cd_sys.clk.eq(clk12)
+        else:
+            self.submodules.pll = pll = iCE40PLL(primitive="SB_PLL40_PAD")
+            pll.register_clkin(clk12, 12e6)
+            pll.create_clkout(self.cd_sys, sys_clk_freq)
+        platform.add_period_constraint(self.cd_sys.clk, 1e9 / sys_clk_freq)
 
         # Power On Reset
-        self.sync.por += If(reset_delay != 0, reset_delay.eq(reset_delay - 1))
+        self.reset = Signal()
+        por_cycles = 4096
+        por_counter = Signal(log2_int(por_cycles), reset=por_cycles - 1)
+        self.comb += self.cd_por.clk.eq(self.cd_sys.clk)
+        platform.add_period_constraint(self.cd_por.clk, 1e9 / sys_clk_freq)
+        self.sync.por += If(por_counter != 0, por_counter.eq(por_counter - 1))
+        self.comb += self.cd_sys.rst.eq(por_counter != 0)
         self.specials += AsyncResetSynchronizer(self.cd_por, self.reset)
 
 
@@ -78,7 +88,7 @@ class BaseSoC(SoCCore):
         "vexriscv_debug":   0xf00f0000,
     }
 
-    def __init__(self, debug, flash_offset, **kwargs):
+    def __init__(self, debug, flash_offset, sys_clk_freq, **kwargs):
         """Create a basic SoC for iCEBreaker.
 
         Create a basic SoC for iCEBreaker.  The `sys` frequency will run at 12 MHz.
@@ -95,8 +105,6 @@ class BaseSoC(SoCCore):
             else:
                 kwargs["cpu_variant"] = "lite"
 
-        clk_freq = int(12e6)
-
         # Force the SRAM size to 0, because we add our own SRAM with SPRAM
         kwargs["integrated_sram_size"] = 0
         kwargs["integrated_rom_size"]  = 0
@@ -107,9 +115,9 @@ class BaseSoC(SoCCore):
         kwargs["cpu_reset_address"] = self.mem_map["spiflash"] + flash_offset
 
         # SoCCore
-        SoCCore.__init__(self, platform, clk_freq, **kwargs)
+        SoCCore.__init__(self, platform, sys_clk_freq, **kwargs)
 
-        self.submodules.crg = _CRG(platform)
+        self.submodules.crg = _CRG(platform, sys_clk_freq)
 
         # UP5K has single port RAM, which is a dedicated 128 kilobyte block.
         # Use this as CPU RAM.
@@ -131,7 +139,7 @@ class BaseSoC(SoCCore):
         # however you can use the "crossover" UART to communicate with this over the bridge.
         if debug:
             kwargs["uart_name"]   = "crossover"
-            self.submodules.uart_bridge = UARTWishboneBridge(platform.request("serial"), clk_freq, baudrate=115200)
+            self.submodules.uart_bridge = UARTWishboneBridge(platform.request("serial"), sys_clk_freq, baudrate=115200)
             self.add_wb_master(self.uart_bridge.wishbone)
             if hasattr(self, "cpu") and self.cpu.name == "vexriscv":
                 self.register_mem("vexriscv_debug", 0xf00f0000, self.cpu.debug_bus, 0x100)
@@ -179,6 +187,7 @@ class BaseSoC(SoCCore):
 def main():
     parser = argparse.ArgumentParser(description="LiteX SoC on iCEBreaker")
     parser.add_argument("--flash-offset", default=0x40000, help="Boot offset in SPI Flash")
+    parser.add_argument("--sys-clk-freq", type=float, default=21e6, help="Select system clock frequency")
     parser.add_argument("--nextpnr-seed", default=0, help="Select nextpnr pseudo random seed")
     parser.add_argument("--nextpnr-placer", default="heap", choices=["sa", "heap"], help="Select nextpnr placer algorithm")
     parser.add_argument("--debug", action="store_true", help="Enable debug features. (UART has to be used with the wishbone-tool.)")
@@ -189,7 +198,7 @@ def main():
     args = parser.parse_args()
 
     # Create the SOC
-    soc = BaseSoC(debug=args.debug, flash_offset=args.flash_offset, **soc_core_argdict(args))
+    soc = BaseSoC(debug=args.debug, flash_offset=args.flash_offset, sys_clk_freq=int(args.sys_clk_freq), **soc_core_argdict(args))
     soc.set_yosys_nextpnr_settings(nextpnr_seed=args.nextpnr_seed, nextpnr_placer=args.nextpnr_placer)
 
     # Configure command line parameter defaults

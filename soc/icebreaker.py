@@ -114,6 +114,11 @@ class BaseSoC(SoCCore):
         # Set CPU reset address
         kwargs["cpu_reset_address"] = self.mem_map["spiflash"] + flash_offset
 
+        # Select "crossover" as soc uart instead of "serial"
+        # We have to make that selection before calling the parent initializer
+        if debug:
+            kwargs["uart_name"]   = "crossover"
+
         # SoCCore
         SoCCore.__init__(self, platform, sys_clk_freq, **kwargs)
 
@@ -138,7 +143,6 @@ class BaseSoC(SoCCore):
         # In debug mode, add a UART bridge.  This takes over from the normal UART bridge,
         # however you can use the "crossover" UART to communicate with this over the bridge.
         if debug:
-            kwargs["uart_name"]   = "crossover"
             self.submodules.uart_bridge = UARTWishboneBridge(platform.request("serial"), sys_clk_freq, baudrate=115200)
             self.add_wb_master(self.uart_bridge.wishbone)
             if hasattr(self, "cpu") and self.cpu.name == "vexriscv":

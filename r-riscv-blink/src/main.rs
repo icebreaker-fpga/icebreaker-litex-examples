@@ -24,12 +24,12 @@ fn main() -> ! {
     print::print_hardware::set_hardware(peripherals.UART);
     let mut timer = Timer::new(peripherals.TIMER0);
     let mut leds = Leds::new(peripherals.LEDS);
-    leds.set(false, true);
+    leds.set_single(true, false, true, false, true, false, true);
 
     loop {
         print!("a");
         leds.toggle();
-        msleep(&mut timer, 80);
+        msleep(&mut timer, 160);
     }
 }
 

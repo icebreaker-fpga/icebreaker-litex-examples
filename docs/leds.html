@@ -69,7 +69,12 @@ corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED wi
     "reg": [
         {"name": "ledr",  "bits": 1},
         {"name": "ledg",  "bits": 1},
-        {"bits": 30}
+        {"name": "hledr1",  "bits": 1},
+        {"name": "hledg2",  "bits": 1},
+        {"name": "hledg3",  "bits": 1},
+        {"name": "hledg4",  "bits": 1},
+        {"name": "hledg5",  "bits": 1},
+        {"bits": 25}
     ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
 }
 </script>
@@ -77,9 +82,9 @@ corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED wi
 </div></blockquote>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 10%" />
-<col style="width: 78%" />
+<col style="width: 11%" />
+<col style="width: 13%" />
+<col style="width: 76%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Field</p></th>
@@ -95,6 +100,26 @@ corresponding LED bit to 1 the LED will be off and if you set it to 0 the LED wi
 <tr class="row-odd"><td><p>[1]</p></td>
 <td><p>LEDG</p></td>
 <td><p>The Green LED on the main iCEBreaker board.</p></td>
+</tr>
+<tr class="row-even"><td><p>[2]</p></td>
+<td><p>HLEDR1</p></td>
+<td><p>The center Red LED #1 on the iCEBreaker head.</p></td>
+</tr>
+<tr class="row-odd"><td><p>[3]</p></td>
+<td><p>HLEDG2</p></td>
+<td><p>Green LED #2 on the iCEBreaker head.</p></td>
+</tr>
+<tr class="row-even"><td><p>[4]</p></td>
+<td><p>HLEDG3</p></td>
+<td><p>Green LED #3 on the iCEBreaker head.</p></td>
+</tr>
+<tr class="row-odd"><td><p>[5]</p></td>
+<td><p>HLEDG4</p></td>
+<td><p>Green LED #4 on the iCEBreaker head.</p></td>
+</tr>
+<tr class="row-even"><td><p>[6]</p></td>
+<td><p>HLEDG5</p></td>
+<td><p>Green LED #5 on the iCEBreaker head.</p></td>
 </tr>
 </tbody>
 </table>

@@ -29,16 +29,31 @@ LEDS_OUT
             "reg": [
                 {"name": "ledr",  "bits": 1},
                 {"name": "ledg",  "bits": 1},
-                {"bits": 30}
+                {"name": "hledr1",  "bits": 1},
+                {"name": "hledg2",  "bits": 1},
+                {"name": "hledg3",  "bits": 1},
+                {"name": "hledg4",  "bits": 1},
+                {"name": "hledg5",  "bits": 1},
+                {"bits": 25}
             ], "config": {"hspace": 400, "bits": 32, "lanes": 4 }, "options": {"hspace": 400, "bits": 32, "lanes": 4}
         }
 
 
-+-------+------+---------------------------------------------+
-| Field | Name | Description                                 |
-+=======+======+=============================================+
-| [0]   | LEDR | The Red LED on the main iCEBreaker board.   |
-+-------+------+---------------------------------------------+
-| [1]   | LEDG | The Green LED on the main iCEBreaker board. |
-+-------+------+---------------------------------------------+
++-------+--------+-----------------------------------------------+
+| Field | Name   | Description                                   |
++=======+========+===============================================+
+| [0]   | LEDR   | The Red LED on the main iCEBreaker board.     |
++-------+--------+-----------------------------------------------+
+| [1]   | LEDG   | The Green LED on the main iCEBreaker board.   |
++-------+--------+-----------------------------------------------+
+| [2]   | HLEDR1 | The center Red LED #1 on the iCEBreaker head. |
++-------+--------+-----------------------------------------------+
+| [3]   | HLEDG2 | Green LED #2 on the iCEBreaker head.          |
++-------+--------+-----------------------------------------------+
+| [4]   | HLEDG3 | Green LED #3 on the iCEBreaker head.          |
++-------+--------+-----------------------------------------------+
+| [5]   | HLEDG4 | Green LED #4 on the iCEBreaker head.          |
++-------+--------+-----------------------------------------------+
+| [6]   | HLEDG5 | Green LED #5 on the iCEBreaker head.          |
++-------+--------+-----------------------------------------------+
 

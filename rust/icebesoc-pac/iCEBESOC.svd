@@ -462,6 +462,41 @@ to perform half-duplex operations, using this SPI core.]]></description>
                             <lsb>1</lsb>
                             <description><![CDATA[The Green LED on the main iCEBreaker board.]]></description>
                         </field>
+                        <field>
+                            <name>hledr1</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[The center Red LED #1 on the iCEBreaker head.]]></description>
+                        </field>
+                        <field>
+                            <name>hledg2</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Green LED #2 on the iCEBreaker head.]]></description>
+                        </field>
+                        <field>
+                            <name>hledg3</name>
+                            <msb>4</msb>
+                            <bitRange>[4:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[Green LED #3 on the iCEBreaker head.]]></description>
+                        </field>
+                        <field>
+                            <name>hledg4</name>
+                            <msb>5</msb>
+                            <bitRange>[5:5]</bitRange>
+                            <lsb>5</lsb>
+                            <description><![CDATA[Green LED #4 on the iCEBreaker head.]]></description>
+                        </field>
+                        <field>
+                            <name>hledg5</name>
+                            <msb>6</msb>
+                            <bitRange>[6:6]</bitRange>
+                            <lsb>6</lsb>
+                            <description><![CDATA[Green LED #5 on the iCEBreaker head.]]></description>
+                        </field>
                     </fields>
                 </register>
             </registers>

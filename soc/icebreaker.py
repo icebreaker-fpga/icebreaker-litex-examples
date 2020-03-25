@@ -30,7 +30,7 @@ from litex.build.lattice.programmer import IceStormProgrammer
 from litex.soc.integration.soc_core import soc_core_argdict, soc_core_args
 from litex.soc.integration.doc import AutoDoc
 
-from litex_boards.platforms.icebreaker import Platform
+from litex_boards.platforms.icebreaker import Platform, break_off_pmod
 
 from litex.soc.cores.uart import UARTWishboneBridge
 from rtl.leds import Leds
@@ -148,13 +148,25 @@ class BaseSoC(SoCCore):
             if hasattr(self, "cpu") and self.cpu.name == "vexriscv":
                 self.register_mem("vexriscv_debug", 0xf00f0000, self.cpu.debug_bus, 0x100)
 
+        platform.add_extension(break_off_pmod)
+
         self.submodules.leds = Leds(Cat(
             platform.request("user_ledr_n"),
-            platform.request("user_ledg_n")),
+            platform.request("user_ledg_n"),
+            platform.request("user_ledr"),
+            platform.request("user_ledg", 0),
+            platform.request("user_ledg", 1),
+            platform.request("user_ledg", 2),
+            platform.request("user_ledg", 3)),
             led_polarity=0x03,
             led_name=[
                 ["ledr", "The Red LED on the main iCEBreaker board."],
-                ["ledg", "The Green LED on the main iCEBreaker board."]])
+                ["ledg", "The Green LED on the main iCEBreaker board."],
+                ["hledr1", "The center Red LED #1 on the iCEBreaker head."],
+                ["hledg2", "Green LED #2 on the iCEBreaker head."],
+                ["hledg3", "Green LED #3 on the iCEBreaker head."],
+                ["hledg4", "Green LED #4 on the iCEBreaker head."],
+                ["hledg5", "Green LED #5 on the iCEBreaker head."]])
 
         self.add_csr("leds")
 

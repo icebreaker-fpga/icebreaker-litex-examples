@@ -25,8 +25,8 @@ the `--debug` option the UART can be used directly without the wishbone-tool.
 
 ## Customization
 
-Because the SOC is a softcore for an FPGA we strive to prived a few examples
-regarding customization of the SOC. Here is a non exhaustive list of a few
+Because the SOC is a softcore for an FPGA we strive to provide a few examples
+of customization the SOC configuration. Here is a non exhaustive list of a few
 interesting parameters you can play with. Try the `--help` parameter to see the
 full list of parameters that our litex script accepts.
 

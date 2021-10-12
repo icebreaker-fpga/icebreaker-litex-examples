@@ -7,3 +7,12 @@
 [submodule "soc/deps/litex-boards"]
 	path = soc/deps/litex-boards
 	url = https://github.com/litex-hub/litex-boards.git
+[submodule "soc/deps/pythondata-cpu-vexriscv"]
+	path = soc/deps/pythondata-cpu-vexriscv
+	url = https://github.com/litex-hub/pythondata-cpu-vexriscv.git
+[submodule "soc/deps/pythondata-software-picolibc"]
+	path = soc/deps/pythondata-software-picolibc
+	url = https://github.com/litex-hub/pythondata-software-picolibc.git
+[submodule "soc/deps/pythondata-software-compiler_rt"]
+	path = soc/deps/pythondata-software-compiler_rt
+	url = https://github.com/litex-hub/pythondata-software-compiler_rt.git

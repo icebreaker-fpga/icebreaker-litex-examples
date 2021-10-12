@@ -3,7 +3,7 @@
 # This script enables easy, cross-platform building without the need
 # to install third-party Python modules.
 
-LXBUILDENV_VERSION = '2020.2.18.1'
+LXBUILDENV_VERSION = '2020.6.1.1'
 import sys
 import os
 import subprocess
@@ -35,7 +35,6 @@ OPTIONAL_DEPS = {
 # be used later on to construct various environment variables for paths
 # to a variety of support directories.
 script_path = os.path.dirname(os.path.realpath(__file__)) + os.path.sep
-
 
 # Look through the specified file for known variables to get the dependency list
 def read_configuration(filename, args):
@@ -89,7 +88,6 @@ def read_configuration(filename, args):
     configuration['dependencies'] = list(dependencies.keys())
     return configuration
 
-
 def get_python_path(script_path, args):
     # Python has no concept of a local dependency path, such as the C `-I``
     # switch, or the nodejs `node_modules` path, or the rust cargo registry.
@@ -104,7 +102,6 @@ def get_python_path(script_path, args):
             if os.path.isdir(dep):
                 python_path.append(dep)
     return python_path
-
 
 def fixup_env(script_path, args):
     os.environ["PYTHONPATH"] = os.pathsep.join(get_python_path(script_path, 0))
@@ -140,7 +137,6 @@ def fixup_env(script_path, args):
 
         sys.exit(0)
 
-
 # Equivalent to the powershell Get-Command, and kinda like `which`
 def get_command(cmd):
     if os.name == 'nt':
@@ -153,20 +149,18 @@ def get_command(cmd):
                 return path + os.path.sep + cmd + ext
     return None
 
-
 def check_python_version(args):
     import platform
     # Litex / Migen require Python 3.5 or newer.  Ensure we're running
     # under a compatible version of Python.
     if sys.version_info[:3] < (3, 5):
         return (False,
-                "python: You need Python 3.5+ (version {} found)".format(sys.version_info[:3]))
+            "python: You need Python 3.5+ (version {} found)".format(sys.version_info[:3]))
     return (True, "python 3.5+: ok (Python {} found)".format(platform.python_version()))
-
 
 def check_vivado(args):
     vivado_path = get_command("vivado")
-    if vivado_path is None:
+    if vivado_path == None:
         # Look for the default Vivado install directory
         if os.name == 'nt':
             base_dir = r"C:\Xilinx\Vivado"
@@ -179,59 +173,54 @@ def check_vivado(args):
                     os.environ["PATH"] += os.pathsep + bin_dir
                     vivado_path = bin_dir
                     break
-    if vivado_path is None:
+    if vivado_path == None:
         return (False, "toolchain not found in your PATH", "download it from https://www.xilinx.com/support/download.html")
     return (True, "found at {}".format(vivado_path))
-
 
 def check_cmd(args, cmd, name=None, fix=None):
     if name is None:
         name = cmd
     path = get_command(cmd)
-    if path is None:
+    if path == None:
         return (False, name + " not found in your PATH", fix)
     return (True, "found at {}".format(path))
-
 
 def check_make(args):
     return check_cmd(args, "make", "GNU Make")
 
-
 def check_riscv(args):
     riscv64 = check_cmd(args, "riscv64-unknown-elf-gcc", "riscv toolchain", "download it from https://www.sifive.com/boards/")
-    if riscv64[0] is True:
+    if riscv64[0] == True:
         return riscv64
 
     riscv32 = check_cmd(args, "riscv32-unknown-elf-gcc", "riscv toolchain", "download it from https://www.sifive.com/boards/")
-    if riscv32[0] is True:
+    if riscv32[0] == True:
         return riscv32
 
-    return riscv64
+    # See https://xpack.github.io/riscv-none-embed-gcc/#riscv64-unknown-elf-gcc
+    xpm_riscv = check_cmd(args, "riscv-none-embed-gcc", "xPack GNU RISC-V Embedded GCC", "install it from https://xpack.github.io/riscv-none-embed-gcc/install/")
+    if xpm_riscv[0] == True:
+        return xpm_riscv
 
+    return riscv64
 
 def check_yosys(args):
     return check_cmd(args, "yosys")
 
-
 def check_arachne(args):
     return check_cmd(args, "arachne-pnr")
-
 
 def check_git(args):
     return check_cmd(args, "git")
 
-
 def check_icestorm(args):
     return check_cmd(args, "icepack")
-
 
 def check_nextpnr_ice40(args):
     return check_cmd(args, "nextpnr-ice40")
 
-
 def check_nextpnr_ecp5(args):
     return check_cmd(args, "nextpnr-ecp5")
-
 
 dependency_checkers = {
     'python': check_python_version,
@@ -246,17 +235,16 @@ dependency_checkers = {
     'nextpnr-ecp5': check_nextpnr_ecp5,
 }
 
-
 # Validate that the required dependencies (Vivado, compilers, etc.)
 # have been installed.
 def check_dependencies(args, dependency_list):
     dependency_errors = 0
     for dependency_name in dependency_list:
-        if dependency_name not in dependency_checkers:
+        if not dependency_name in dependency_checkers:
             print('lxbuildenv: WARNING: Unrecognized dependency "{}"'.format(dependency_name))
             continue
         result = dependency_checkers[dependency_name](args)
-        if result[0] is False:
+        if result[0] == False:
             if len(result) > 2:
                 print('lxbuildenv: {}: {} -- {}'.format(dependency_name, result[1], result[2]))
             else:
@@ -278,17 +266,20 @@ def check_dependencies(args, dependency_list):
     if args.lx_check_deps:
         sys.exit(0)
 
-
 # Return True if the given tree needs to be initialized
-def check_module_recursive(root_path, depth, verbose=False, breadcrumbs=[]):
+def check_module(root_path, depth, verbose=False, recursive=True, breadcrumbs=[]):
     if verbose:
         print('git-dep: checking if "{}" requires updating (depth: {})...'.format(root_path, depth))
 
     # If the directory isn't a valid git repo, initialization is required
+    if not os.path.exists(root_path):
+        if verbose:
+            print('git-dep: subdirectory {} does not exist, so starting update'.format(root_path))
+        return True
     git_dir_cmd = subprocess.Popen(["git", "rev-parse", "--show-toplevel"],
-                                   cwd=root_path,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE)
+                        cwd=root_path,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE)
     (git_stdout, _) = git_dir_cmd.communicate()
     if git_dir_cmd.wait() != 0:
         if verbose:
@@ -314,24 +305,27 @@ def check_module_recursive(root_path, depth, verbose=False, breadcrumbs=[]):
         return False
 
     # Loop through the gitmodules to check all submodules
-    gitmodules = open(git_dir + os.path.sep + '.gitmodules', 'r')
-    for line in gitmodules:
-        parts = line.split("=", 2)
-        if parts[0].strip() == "path":
-            path = parts[1].strip()
-            if check_module_recursive(git_dir + os.path.sep + path, depth + 1, verbose=verbose, breadcrumbs=breadcrumbs):
-                return True
+    if recursive or depth == 0:
+        gitmodules = open(git_dir + os.path.sep + '.gitmodules', 'r')
+        for line in gitmodules:
+            parts = line.split("=", 2)
+            if parts[0].strip() == "path":
+                path = parts[1].strip()
+                if check_module(git_dir + os.path.sep + path, depth + 1, verbose=verbose, recursive=recursive, breadcrumbs=breadcrumbs):
+                    return True
     return False
-
 
 # Determine whether we need to invoke "git submodules init --recurse"
 def check_submodules(script_path, args):
-    if check_module_recursive(script_path, 0, verbose=args.lx_verbose):
+    if check_module(script_path, 0, verbose=args.lx_verbose, recursive=args.lx_recursive_git):
         if not args.lx_quiet:
             print("lxbuildenv: Missing git submodules -- updating")
             print("lxbuildenv: To ignore git issues, re-run with --lx-ignore-git")
-        subprocess.Popen(["git", "submodule", "update",
-                          "--init", "--recursive"], cwd=script_path).wait()
+
+        git_cmd = ["git", "submodule", "update", "--init"]
+        if args.lx_recursive_git:
+            git_cmd.append("--recursive")
+        subprocess.Popen(git_cmd, cwd=script_path).wait()
     elif args.lx_verbose:
         if not args.lx_quiet:
             print("lxbuildenv: Submodule check: Submodules found")
@@ -362,7 +356,7 @@ def lx_main(args):
         lx_print_deps()
 
     elif args.lx_run is not None:
-        script_name = args.lx_run[0]
+        script_name=args.lx_run[0]
         config = read_configuration(script_name, args)
 
         fixup_env(script_path, args)
@@ -404,7 +398,10 @@ def lx_main(args):
                     lx_git('submodule', 'add', dep_url, dest_path)
                     lx_git('add', dest_path)
 
-            lx_git('submodule', 'update', '--init', '--recursive')
+            if args.lx_recursive_git:
+                lx_git('submodule', 'update', '--init', '--recursive')
+            else:
+                lx_git('submodule', 'update', '--init')
 
         if args.no_bin:
             print("lxbuildenv: skipping bin/ initialization")
@@ -515,7 +512,6 @@ if __name__ == "__main__":
         return False
     return True
 
-
 # For the main command, parse args and hand it off to main()
 def main():
     parser = argparse.ArgumentParser(
@@ -548,11 +544,13 @@ def main():
     parser.add_argument(
         '-r', '--run', '--lx-run', dest='lx_run', help="run the given script under lxbuildenv", nargs=argparse.REMAINDER
     )
+    parser.add_argument(
+        "--lx-recursive-git", help="recursively check out submodules", action="store_true"
+    )
     args = parser.parse_args()
 
     if not lx_main(args):
         parser.print_help()
-
 
 if __name__ == "__main__":
     main()
@@ -590,6 +588,9 @@ elif "LXBUILDENV_REEXEC" not in os.environ:
     )
     parser.add_argument(
         "--lx-check-git", help="force a git check even if it's otherwise disabled", action="store_true"
+    )
+    parser.add_argument(
+        "--lx-recursive-git", help="recursively check out submodules", action="store_true"
     )
     (args, rest) = parser.parse_known_args()
 

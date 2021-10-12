@@ -1,0 +1,49 @@
+name: build
+
+on:
+  push:
+
+jobs:
+  # Main build, creates soc and firmware
+  build-soc:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout Repository
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    # Configure fpga tools
+    - name: YosysHQ setup
+      uses: YosysHQ/setup-oss-cad-suite@v1
+      
+    - name: RISC-V GNU setup
+      uses: gregdavill/setup-riscv-gnu-toolchain@v1.0
+    
+    - name: configure python
+      run: |
+        python3 -m pip install setuptools wheel
+        python3 -m pip install Sphinx sphinxcontrib-wavedrom meson ninja setuptools_scm Jinja2
+        
+    - name: Litex build
+      working-directory: ./soc
+      run: |
+        ./icebreaker.py
+        ./icebreaker.py --debug --sys-clk-freq 12e6
+
+    - name: c build
+      working-directory: ./c-riscv-blink
+      run: make
+
+    - name: rust setup
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: riscv32i-unknown-none-elf
+        override: true
+
+    - name: rust build
+      working-directory: ./r-riscv-blink
+      run: cargo build --release
+      

@@ -3,9 +3,14 @@ GIT_VERSION := $(shell git describe --tags)
 # Earlier versions of the Raspberry Pi image only had riscv32-gcc
 ifneq (,$(wildcard /usr/bin/riscv32-unknown-elf-gcc))
 CROSS_COMPILE       ?= riscv32-unknown-elf-
-else
+endif
+ifneq (,$(shell which riscv64-unknown-elf-gcc))
 CROSS_COMPILE       ?= riscv64-unknown-elf-
 endif
+ifneq (,$(shell which riscv-none-embed-gcc))
+CROSS_COMPILE       ?= riscv-none-embed-
+endif
+
 
 # The offset we should use when flashing the binary into the iCEBreaker flash.
 FLASH_OFFSET := 0x00040000

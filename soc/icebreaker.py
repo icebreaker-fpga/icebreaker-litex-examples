@@ -21,7 +21,7 @@ import argparse
 from migen import *
 from migen.genlib.resetsync import AsyncResetSynchronizer
 
-from litex.soc.cores.up5kspram import Up5kSPRAM
+from litex.soc.cores.ram import Up5kSPRAM
 from litex.soc.cores.spi_flash import SpiFlash
 from litex.soc.cores.clock import iCE40PLL
 from litex.soc.integration.soc_core import SoCCore

@@ -17,6 +17,7 @@ LX_DEPENDENCIES = ["riscv", "icestorm", "yosys", "nextpnr-ice40"]
 import lxbuildenv
 
 import argparse
+from os import path
 
 from migen import *
 from migen.genlib.resetsync import AsyncResetSynchronizer
@@ -234,7 +235,7 @@ def main():
 
     # If requested load the resulting bitstream onto the iCEBreaker
     if args.flash:
-        IceStormProgrammer().flash(0x00000000, "soc_basesoc_icebreaker/gateware/top.bin")
+        IceStormProgrammer().flash(0x00000000, path.join(builder.gateware_dir,"{}.bin".format(soc.build_name)))
 
 
 if __name__ == "__main__":

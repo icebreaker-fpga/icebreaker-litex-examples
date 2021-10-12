@@ -61,7 +61,7 @@ class _CRG(Module, AutoDoc):
         else:
             self.submodules.pll = pll = iCE40PLL(primitive="SB_PLL40_PAD")
             pll.register_clkin(clk12, 12e6)
-            pll.create_clkout(self.cd_sys, sys_clk_freq)
+            pll.create_clkout(self.cd_sys, sys_clk_freq, with_reset=False)
         platform.add_period_constraint(self.cd_sys.clk, 1e9 / sys_clk_freq)
 
         # Power On Reset

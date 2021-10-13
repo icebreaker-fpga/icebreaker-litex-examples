@@ -16,3 +16,6 @@
 [submodule "soc/deps/pythondata-software-compiler_rt"]
 	path = soc/deps/pythondata-software-compiler_rt
 	url = https://github.com/litex-hub/pythondata-software-compiler_rt.git
+[submodule "soc/deps/litespi"]
+	path = soc/deps/litespi
+	url = https://github.com/litex-hub/litespi.git

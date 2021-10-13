@@ -30,6 +30,7 @@ from litex.soc.integration.builder import Builder, builder_argdict, builder_args
 from litex.build.lattice.programmer import IceStormProgrammer
 from litex.soc.integration.soc_core import soc_core_argdict, soc_core_args
 from litex.soc.integration.doc import AutoDoc
+from litex.soc.integration.soc import SoCRegion
 
 from litex_boards.platforms.icebreaker import Platform, break_off_pmod
 
@@ -83,9 +84,9 @@ class BaseSoC(SoCCore):
 
     # Statically-define the memory map, to prevent it from shifting across various litex versions.
     SoCCore.mem_map = {
-        "sram":             0x10000000,  # (default shadow @0xa0000000)
-        "spiflash":         0x20000000,  # (default shadow @0xa0000000)
-        "csr":              0xe0000000,  # (default shadow @0x60000000)
+        "sram":             0x10000000,
+        "spiflash":         0x20000000,
+        "csr":              0xf0000000,
         "vexriscv_debug":   0xf00f0000,
     }
 
@@ -131,15 +132,17 @@ class BaseSoC(SoCCore):
         self.submodules.spram = Up5kSPRAM(size=spram_size)
         self.register_mem("sram", self.mem_map["sram"], self.spram.bus, spram_size)
 
-        # The litex SPI module supports memory-mapped reads, as well as a bit-banged mode
-        # for doing writes.
-        spiflash_size = 16 * 1024 * 1024
-        self.submodules.spiflash = SpiFlash(platform.request("spiflash4x"), dummy=6, endianness="little")
-        self.register_mem("spiflash", self.mem_map["spiflash"], self.spiflash.bus, size=spiflash_size)
-        self.add_csr("spiflash")
+        # SPI Flash --------------------------------------------------------------------------------
+        from litespi.modules import W25Q128JV
+        from litespi.opcodes import SpiNorFlashOpCodes as Codes
+        self.add_spi_flash(mode="4x", module=W25Q128JV(Codes.READ_1_1_4), with_master=False)
 
-        # Add ROM linker region
-        self.add_memory_region("rom", self.mem_map["spiflash"] + flash_offset, spiflash_size - flash_offset, type="cached+linker")
+        # Add ROM linker region --------------------------------------------------------------------
+        self.bus.add_region("rom", SoCRegion(
+            origin = self.mem_map["spiflash"] + flash_offset,
+            size   = 8*1024*1024,
+            linker = True)
+        )
 
         # In debug mode, add a UART bridge.  This takes over from the normal UART bridge,
         # however you can use the "crossover" UART to communicate with this over the bridge.
@@ -231,7 +234,8 @@ def main():
     # Create and run the builder
     builder = Builder(soc, **builder_kwargs)
     builder.build()
-    lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
+    # LiteSPI has a bug with generating docs
+    # lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
 
     # If requested load the resulting bitstream onto the iCEBreaker
     if args.flash:

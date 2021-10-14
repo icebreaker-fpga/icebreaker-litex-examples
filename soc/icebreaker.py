@@ -234,8 +234,8 @@ def main():
     # Create and run the builder
     builder = Builder(soc, **builder_kwargs)
     builder.build()
-    # LiteSPI has a bug with generating docs
-    # lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
+    
+    lxsocdoc.generate_docs(soc, "build/documentation/", project_name="iCEBreaker LiteX Riscv Example SOC", author="Piotr Esden-Tempski")
 
     # If requested load the resulting bitstream onto the iCEBreaker
     if args.flash:

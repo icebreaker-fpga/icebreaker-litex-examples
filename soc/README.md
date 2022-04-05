@@ -7,10 +7,9 @@ micropython.
 
 1. Install the latest [YosysHQ toolchain](https://github.com/YosysHQ/oss-cad-suite-build#installation). Older versions (fomu-toolchain and open-tool-forge) will not optimize the design enough to fit the fpga.
 
-2. Install the riscv compiler. On Ubuntu/mint:
-```
-apt install gcc-riscv64-unknown-elf
-```
+2. Install the [riscv toolchiain](https://github.com/sifive/freedom-tools/releases)
+
+Both are installed by unzipping and adding the \*/bin directory to your path
 
 ## Installation
 

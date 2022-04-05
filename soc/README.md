@@ -3,6 +3,15 @@ This is an example Risc-V SOC for the iCEBreaker FPGA.
 The goal is to create a simple SOC that can be programmed from C, Rust or
 micropython.
 
+## Prerequisites
+
+1. Install the latest [YosysHQ toolchain](https://github.com/YosysHQ/oss-cad-suite-build#installation). Older versions (fomu-toolchain and open-tool-forge) will not optimize the design enough to fit the fpga.
+
+2. Install the riscv compiler. On Ubuntu/mint:
+```
+apt install gcc-riscv64-unknown-elf
+```
+
 ## Installation
 
 Run the SOC build script and upload the bitstream to your iCEBreaker:
@@ -12,8 +21,6 @@ Run the SOC build script and upload the bitstream to your iCEBreaker:
 
 NOTE: The script should automatically download all python dependencies. You
 only have to provide the FPGA tools and riscv compiler.
-
-TODO: Add information how to get FPGA tools and the riscv compiler.
 
 Go to one of the language example repositories and follow the instructions in
 the respective README.md.

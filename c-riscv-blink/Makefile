@@ -4,6 +4,9 @@ GIT_VERSION := $(shell git describe --always --tags)
 ifneq (,$(wildcard /usr/bin/riscv32-unknown-elf-gcc 2>/dev/null))
 CROSS_COMPILE       ?= riscv32-unknown-elf-
 endif
+ifneq (,$(shell which riscv32-unknown-elf-gcc 2>/dev/null))
+CROSS_COMPILE       ?= riscv32-unknown-elf-
+endif
 ifneq (,$(shell which riscv64-unknown-elf-gcc 2>/dev/null))
 CROSS_COMPILE       ?= riscv64-unknown-elf-
 endif
